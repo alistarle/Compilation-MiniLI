@@ -42,17 +42,20 @@ type : Int
     | Void
     ;
 
-global : GLOBAL type Identifiant '=' (Constante|BOOLEAN|CHAR) ';';
+global : GLOBAL affectation ';';
 
 affectation : type Identifiant'['Constante']'
     | Identifiant'['Constante']' '=' expression
     | type? Identifiant '=' expression
+    | type Identifiant
     ;
 
-function : type Identifiant'(' ('&'?type Identifiant)?(','+('&'?type Identifiant)+)* ')' '{' (instruction)* '}';
+function : type Identifiant'(' ('&'?type Identifiant)?(','+('&'?type Identifiant)+)* ')' '{' (instruction)*(RETURN (expression | functionCall))? '}';
+
+functionCall: ((affectation|Identifiant) '=')? Identifiant'(' ('&'? Identifiant)?(','+('&'? Identifiant)+)* ')' ';';
 
 instruction : affectation ';' #Assign
-    | Identifiant'(' Identifiant+(','+Identifiant+)* ')' ';' #FunctionCall
+    | functionCall  #FunctionCalll
     | controle #Control
     ;
 
