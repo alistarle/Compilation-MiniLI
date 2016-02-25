@@ -8,12 +8,11 @@ import java.util.List;
 public class FunctionCall extends Instruction {
 
     public String id;
-    public List<String> paramValeur;
-    public List<String> paramRef;
+    public List<Expression> param;
 
-    public FunctionCall(String id, List<String> paramValeur, List<String> paramRef) {
+    public FunctionCall(Position pos,String id, List<Expression> param) {
+        this.pos = pos;
         this.id = id;
-        this.paramValeur = paramValeur;
-        this.paramRef = paramRef;
+        this.param;
     }
 }

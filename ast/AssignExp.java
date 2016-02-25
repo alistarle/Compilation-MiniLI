@@ -7,7 +7,8 @@ public class AssignExp extends Assign {
     public String var;
     public Expression exp;
 
-    public AssignExp(String var, Expression exp) {
+    public AssignExp(Position pos, String var, Expression exp) {
+        this.pos = pos;
         this.var = var;
         this.exp = exp;
     }

@@ -10,13 +10,12 @@ public class Function extends Ast {
 
     public Expression ret;
     public List<Instruction> ins;
-    public HashMap<Type, String> paramValeur;
-    public HashMap<Type, String> paramRef;
+    public HashMap<Type, String> param;
 
-    public Function(Expression ret, List<Instruction> ins, HashMap<Type, String> paramValeur, HashMap<Type, String> paramRef) {
+    public Function(Position pos,Expression ret, List<Instruction> ins, HashMap<Type, String> param) {
+        this.pos = pos;
         this.ret = ret;
         this.ins = ins;
-        this.paramValeur = paramValeur;
-        this.paramRef = paramRef;
+        this.param = param;
     }
 }

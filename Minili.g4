@@ -1,7 +1,11 @@
 grammar Minili;
 
-minili: (function|global)* EOF  #Program
+minili: iinstruction* EOF  #Program
 	;
+
+
+iinstruction : function
+                | global;
 
 //Type de base
 Int : 'int';
@@ -42,21 +46,27 @@ type : Int
     | Void
     ;
 
+
 global : GLOBAL affectation ';';
 
 affectation : type Identifiant'['Constante']'
     | Identifiant'['Constante']' '=' expression
-    | type? Identifiant '=' expression
+    | type? Identifiant '=' SUB?expression
     | type Identifiant
     ;
 
-function : type Identifiant'(' ('&'?type Identifiant)?(','+('&'?type Identifiant)+)* ')' '{' (instruction)*(RETURN (expression | functionCall))? '}';
+function : type Identifiant'(' ('&'?type Identifiant)?(','+('&'?type Identifiant)+)* ')' '{' (instruction)* ret? '}';
 
-functionCall: ((affectation|Identifiant) '=')? Identifiant'(' ('&'? Identifiant)?(','+('&'? Identifiant)+)* ')' ';';
+functionCall: ((affectation|Identifiant) '=')? Identifiant'(' ('&'? expression)?(','+('&'? expression)+)* ')';
 
 instruction : affectation ';' #Assign
-    | functionCall  #FunctionCalll
+    | functionCall ';' #FunctionCalll
     | controle #Control
+    | ret #retour
+    ;
+
+ret: RETURN expression ';'
+    | RETURN functionCall
     ;
 
 controle : IF '(' expression ')' '{' (instruction)* '}' (ELSE '{' (instruction)* '}')?
@@ -67,13 +77,15 @@ expression : expression op=(MUL|DIV) expression #MulDiv
 	| expression op=(ADD|SUB) expression #AddSub
 	| expression op=(GT|GTE|LT|LTE) expression #Comp
 	| expression op=(EQ|NEQ) expression #Equal
-	| expression op=(AND|OR|NOT) expression #Logic
+	| expression op=(AND|OR) expression #Logic
+	| op=NOT expression                  #LogicNot
 	| Identifiant						 #Id
 	| Identifiant'['Constante']'         #IdArray
 	| BOOLEAN                            #Boolean
 	| CHAR                               #Char
-	| Constante                          #Int
+	| SUB?Constante                          #Int
 	| '('expression')'					 #Par
+	| functionCall                      #ExpFunctionCall
 	;
 
 Constante : [0-9]+;

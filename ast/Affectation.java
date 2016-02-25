@@ -6,7 +6,8 @@ package ast;
 public class Affectation extends Ast {
     public Assign assign;
 
-    public Affectation(Assign assign) {
+    public Affectation(Position pos, Assign assign) {
+        this.pos = pos;
         this.assign = assign;
     }
 }

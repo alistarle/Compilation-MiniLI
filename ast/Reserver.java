@@ -7,7 +7,8 @@ public class Reserver extends Assign {
 
     public String var;
 
-    public Reserver(String var) {
+    public Reserver(Position pos, String var) {
+        this.pos = pos;
         this.var = var;
     }
 }
