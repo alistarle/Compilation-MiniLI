@@ -1,0 +1,12 @@
+void main(){
+	int val;
+	int rep;
+	in(val);
+	if(val < 0){
+		rep = - val;
+	}
+	else{
+		rep = val;
+	}
+	out(rep);
+}

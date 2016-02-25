@@ -1,0 +1,17 @@
+void main(){
+	int val;
+	in(val);
+    int rep = abs(val);
+    out(rep);
+}
+
+int abs(int val){
+    int rep;
+	if(val < 0){
+		rep = -val;
+	}
+	else{
+		rep = val;
+	}
+	return rep;
+}

@@ -1,0 +1,17 @@
+void main(){
+	int year;
+	char yes[3];
+	yes[0] = 'y';
+	yes[1] = 'e';
+	yes[2] = 's';
+	char no[2];
+	no[0] = 'n';
+	no[1] = 'o';
+	in(year);
+	if( (year-((year/4)*4)) == 0 &&  (year-((year/100)*100)) != 0 || (year-((year/400)*400)) == 0 ) {
+		out(yes);
+	}
+	else{
+		out(no);
+	}
+}
