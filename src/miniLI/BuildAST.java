@@ -15,8 +15,7 @@ import java.util.List;
 public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     public static Position position(ParserRuleContext ctx){
-        Position pos = new Position(ctx.start.getLine(),
-                ctx.start.getCharPositionInLine());
+        Position pos = new Position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
         return pos;
     }
 
@@ -73,22 +72,23 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override
     public Ast visitDeclareVar(MiniliParser.DeclareVarContext ctx) {
-        return super.visitDeclareVar(ctx);
+        return new DeclareVar(position(ctx), Type.EnumType.valueOf(ctx.type().toString()), ctx.Identifiant().toString());
     }
 
     @Override
     public Ast visitAssignExp(MiniliParser.AssignExpContext ctx) {
-        return super.visitAssignExp(ctx);
+        return new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.type().toString()), ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
     }
 
     @Override
     public Ast visitAssignTabExp(MiniliParser.AssignTabExpContext ctx) {
-        return super.visitAssignTabExp(ctx);
+        return new AssignTabExp(position(ctx), ctx.Identifiant().toString() ,(Expression)visit(ctx.expression(0)), (Expression) visit(ctx.expression(1)));
     }
 
     @Override
     public Ast visitDeclareTab(MiniliParser.DeclareTabContext ctx) {
-        return super.visitDeclareTab(ctx);
+
+        return new DeclareTab(position(ctx), Type.EnumType.valueOf(ctx.type().toString()),  Integer.parseInt(ctx.Constante().toString()) , ctx.Identifiant(1).toString(), ctx.Identifiant(0).toString());
     }
 
     @Override public Ast visitMulDiv(MiniliParser.MulDivContext ctx) {
@@ -198,6 +198,9 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
         for(ParseTree child : ctx.children){
             Ast i = visit(child);
+            if(i == null) {
+                System.out.println("inull");
+            }
             if(i != null && i instanceof Global){
                 g.add((Global)i);
             }else if(i != null && i instanceof Function){
@@ -208,7 +211,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
     }
 
     @Override public Ast visitGlobal(MiniliParser.GlobalContext ctx) {
-        return null ;
+        return new Global(position(ctx), (Affectation) visit(ctx.affectation()));
     }
 
 
@@ -226,7 +229,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
             for(int i = 0; i<ctx.type().size() ; i++) {
                 param.put(Type.EnumType.valueOf(ctx.type(i).toString()),ctx.Identifiant(i).toString());
             }
-            //si ctx.Identifiant(0) = l'id de la fonction, alors les deux boucles au dessus commence 1 cran trop tôt, idem pour type
+            //si ctx.Identifiant(0) = l'id de la fonction, alors les deux boucles au dessus commence 1 cran trop tï¿½t, idem pour type
             return new Function(position(ctx),r,ins,param,ctx.Identifiant(0).toString(),(Type)visit(ctx.type(0)));
         }
 
@@ -251,6 +254,5 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
             }
         }
         return new FunctionCall(position(ctx),ctx.functionCall().Identifiant(0).toString(),param);
-        }
-
+    }
 }
