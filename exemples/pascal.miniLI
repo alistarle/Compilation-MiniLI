@@ -1,0 +1,21 @@
+void main(){
+    int hauteur;
+    int val;
+    int i = 0;
+    int j;
+
+    in(hauteur);
+
+    while(i <= hauteur){
+
+        val = 1;
+        j = 1;
+        out(j);
+        while(j <= i){
+            val = val * (i-j+1)/j;
+            out(val);
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+}

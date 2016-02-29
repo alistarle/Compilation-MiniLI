@@ -1,0 +1,59 @@
+void main(){
+    out('Pour saisir un tableau taper s');
+    out('Pour calculer la moyenne taper m');
+    out('Pour trier le tableau taper t');
+    out('Pour afficher le tableau taper a');
+    
+    int tab[100];
+    int taille;
+    int i = 0;
+    
+    char rep;
+    in(rep);
+    if(rep == 's'){
+        int val;
+        i = 0;
+        out('Taille du tableau');
+        in(taille);
+        while(i < taille - 1){
+            in(val);
+            tab[i] = val;
+            i = i + 1;
+        }
+    }
+    if(rep == 'm'){
+        int sum = 0;
+        i = 0;
+        while(i < taille - 1){
+            sum = sum + tab[i];
+            i = i + 1;
+        }
+        int moy = sum / taille;
+        out(moy);
+    }
+    if(rep == 't'){
+        boolean ok = false;
+        int t = taille;
+        int aux;
+        i = 0;
+        while(!ok){
+            ok = true;
+            while(i < t - 1){
+                if(tab[i] > tab[i+1]){
+                    ok = false;
+                    aux = tab[i];
+                    tab[i] = tab[i+1];
+                    tab[i+1] = aux;
+                }    
+            }
+            t = t - 1;
+        }
+    }
+    if(rep == 'a'){
+        i = 0;
+        while(i < taille - 1){
+            out(tab[i]);
+            out(' ');
+        }
+    }
+}
