@@ -12,9 +12,9 @@ public class Function extends Ast {
     public List<Instruction> ins;
     public HashMap<Type.EnumType, String> param;
     public String id;
-    public Type type;
+    public Type.EnumType type;
 
-    public Function(Position pos,RetExpression ret, List<Instruction> ins, HashMap<Type.EnumType, String> param, String id, Type type) {
+    public Function(Position pos,RetExpression ret, List<Instruction> ins, HashMap<Type.EnumType, String> param, String id, Type.EnumType type) {
         this.pos = pos;
         this.ret = ret;
         this.ins = ins;

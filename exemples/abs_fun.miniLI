@@ -3,6 +3,7 @@ void main(){
 	in(val);
     int rep = abs(val);
     out(rep);
+    return 0;
 }
 
 int abs(int val){

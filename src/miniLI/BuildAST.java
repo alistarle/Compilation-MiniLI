@@ -62,7 +62,14 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override
     public Ast visitReturnExp(MiniliParser.ReturnExpContext ctx) {
-        return new RetExpression(position(ctx), (Expression)visit(ctx.expression()));
+        RetExpression ret;
+        if(ctx.children.get(1) instanceof MiniliParser.IntContext){
+            ret = new RetExpression(position(ctx), new ExpInt(position(ctx), Integer.parseInt(ctx.children.get(1).getChild(0).toString())));
+        }else{
+            ret = null;
+        }
+        return ret;
+        //return new RetExpression(position(ctx), (Expression)visit(ctx.expression()));
     }
 
     @Override
@@ -71,13 +78,28 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
     }
 
     @Override
-    public Ast visitDeclareVar(MiniliParser.DeclareVarContext ctx) {
-        return new DeclareVar(position(ctx), Type.EnumType.valueOf(ctx.type().toString()), ctx.Identifiant().toString());
+    public Ast visitDeclareVar(MiniliParser.DeclareVarContext ctx){
+        return new DeclareVar(position(ctx), Type.t.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString());
     }
 
     @Override
     public Ast visitAssignExp(MiniliParser.AssignExpContext ctx) {
-        return new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.type().toString()), ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
+        AssignExp a = null;
+        for(int i = 0; i < ctx.children.size(); i++){
+            if("=".equals(ctx.children.get(i).toString())){
+                if(ctx.children.get(i + 1).getChild(0) instanceof MiniliParser.FunctionCallContext){
+                    ExpFunctionCall fc = (ExpFunctionCall)visitExpFunctionCall((MiniliParser.ExpFunctionCallContext)ctx.children.get(i + 1));
+                    a = new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString(), fc);
+                }
+                /*if(ctx.children.get(i + 1) instanceof ){
+
+                }*/
+
+                break;
+            }
+        }
+        return a;
+        //return new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
     }
 
     @Override
@@ -216,22 +238,39 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
 
     @Override public Ast visitFunction(MiniliParser.FunctionContext ctx) {
-            RetExpression r = (RetExpression) visit(ctx.ret());
-            List<Instruction> ins =  new ArrayList<>();
-            HashMap<Type.EnumType, String> param = new HashMap<>();
+        List<Instruction> ins =  new ArrayList<>();
+        HashMap<Type.EnumType, String> param = new HashMap<>();
 
-            for(ParseTree child : ctx.instruction()){
-                Ast i = visit(child);
-                if(i != null && i instanceof Instruction){
-                    ins.add((Instruction) i);
+        for(ParseTree child : ctx.children){
+            if(child != null && child instanceof MiniliParser.InstructionContext){
+                if(child.getChild(0) instanceof MiniliParser.DeclareVarContext){
+                    ins.add((Instruction)visitDeclareVar((MiniliParser.DeclareVarContext)child.getChild(0)));
                 }
+                else if(child.getChild(0) instanceof MiniliParser.FunctionCallContext){
+                    ins.add((Instruction)visitFunctionCall((MiniliParser.FunctionCallContext)child.getChild(0)));
+                }
+                else if(child.getChild(0) instanceof MiniliParser.AssignExpContext){
+                    ins.add((Instruction) visitAssignExp((MiniliParser.AssignExpContext)child.getChild(0)));
+                }
+                else if(child.getChild(0) instanceof MiniliParser.ReturnExpContext){
+                    ins.add((Instruction)visitReturnExp((MiniliParser.ReturnExpContext)child.getChild(0)));
+                }
+                else if(child.getChild(0) instanceof MiniliParser.ControleIfContext){
+
+                }
+                /*Ast i = visitInstruction((MiniliParser.InstructionContext)child);
+                ins.add((Instruction) i);*/
             }
-            for(int i = 0; i<ctx.type().size() ; i++) {
-                param.put(Type.EnumType.valueOf(ctx.type(i).toString()),ctx.Identifiant(i).toString());
-            }
-            //si ctx.Identifiant(0) = l'id de la fonction, alors les deux boucles au dessus commence 1 cran trop t�t, idem pour type
-            return new Function(position(ctx),r,ins,param,ctx.Identifiant(0).toString(),(Type)visit(ctx.type(0)));
         }
+        System.out.println(ctx.type().size());
+        for(int i = 1; i<ctx.type().size() ; i++) {
+            param.put(Type.EnumType.valueOf(ctx.type(i).toString().toUpperCase()),ctx.Identifiant(i).toString());
+        }
+
+        System.out.println(ctx.type(0).toString().toUpperCase());
+        return new Function(position(ctx), (RetExpression)ins.get(ins.size()-1),ins,param,ctx.Identifiant(0).toString(),Type.EnumType.valueOf(ctx.type(0).toString().toUpperCase()));
+
+    }
 
     @Override public Ast visitFunctionCall(MiniliParser.FunctionCallContext ctx) {
             List<Expression> param = new ArrayList<>();
@@ -253,6 +292,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
                 param.add((Expression) i);
             }
         }
-        return new FunctionCall(position(ctx),ctx.functionCall().Identifiant(0).toString(),param);
+        FunctionCall fc = new FunctionCall(position(ctx),ctx.functionCall().Identifiant(0).toString(),param);
+        return new ExpFunctionCall(position(ctx), fc);
     }
 }

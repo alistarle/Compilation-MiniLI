@@ -5,7 +5,7 @@ package ast;
  */
 public class Type extends Ast{
     public enum EnumType {INT, CHAR, BOOLEAN, VOID}
-    public EnumType t;
+    public static EnumType t;
 
     public Type(Position pos, EnumType t){
         this.pos = pos;

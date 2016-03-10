@@ -3,7 +3,7 @@ package ast;
 /**
  * Created by thomas on 24/02/16.
  */
-public class RetExpression extends Ast{
+public class RetExpression extends Instruction{
     public Expression exp;
 
     public RetExpression(Position pos, Expression exp) {
