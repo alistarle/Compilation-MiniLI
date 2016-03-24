@@ -1,5 +1,8 @@
 package ast;
 
+import table.FunctionIdentificateur;
+import table.Table;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,23 +13,28 @@ public class Function extends Ast {
 
     public RetExpression ret;
     public List<Instruction> ins;
-    public HashMap<Type.EnumType, String> param;
+    public HashMap<Type.EnumType, String> paramVal;
+    public HashMap<Type.EnumType, String> paramRef;
     public String id;
     public Type.EnumType type;
 
-    public Function(Position pos,RetExpression ret, List<Instruction> ins, HashMap<Type.EnumType, String> param, String id, Type.EnumType type) {
+    public Function(Position pos,RetExpression ret, List<Instruction> ins, HashMap<Type.EnumType, String> paramVal, HashMap<Type.EnumType, String> paramRef, String id, Type.EnumType type) {
         this.pos = pos;
         this.ret = ret;
         this.ins = ins;
-        this.param = param;
+        this.paramVal = paramVal;
+        this.paramRef = paramRef;
         this.id = id;
         this.type = type;
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder(type.toString() + " " + id.toString() +"(");
-        for(HashMap.Entry<Type.EnumType, String> entry : param.entrySet()){
+        for(HashMap.Entry<Type.EnumType, String> entry : paramVal.entrySet()){
             s.append(entry.getKey().toString() + " " + entry.getValue().toString() + ",");
+        }
+        for(HashMap.Entry<Type.EnumType, String> entry : paramRef.entrySet()){
+            s.append("&" + entry.getKey().toString() + " " + entry.getValue().toString() + ",");
         }
         //remove the last ","
         s.deleteCharAt(s.length()-1);
@@ -37,5 +45,18 @@ public class Function extends Ast {
         }
 
         return s.toString() + ret.toString();
+    }
+
+    public void insertIntoTable(Table table){
+        FunctionIdentificateur fId = new FunctionIdentificateur(type, id);
+
+        for(HashMap.Entry<Type.EnumType, String> entry : paramVal.entrySet()){
+            fId.addVal(entry.getKey(), entry.getValue());
+        }
+        for(HashMap.Entry<Type.EnumType, String> entry : paramRef.entrySet()){
+            fId.addRef(entry.getKey(), entry.getValue());
+        }
+
+        table.addTopBlock(fId);
     }
 }
