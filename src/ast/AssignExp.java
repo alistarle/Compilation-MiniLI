@@ -32,7 +32,10 @@ public class AssignExp extends Assign {
     }
 
     public void insertIntoTable(Table table){
-        VarIdentificateur varId = new VarIdentificateur(t, var);
-        table.addTopBlock(varId);
+        //declaration
+        if(!isNull()){
+            VarIdentificateur varId = new VarIdentificateur(t, var);
+            table.addTopBlock(varId,isGlobal);
+        }
     }
 }

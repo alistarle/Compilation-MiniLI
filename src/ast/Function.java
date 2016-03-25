@@ -57,6 +57,6 @@ public class Function extends Ast {
             fId.addRef(entry.getKey(), entry.getValue());
         }
 
-        table.addTopBlock(fId);
+        table.addTopBlock(fId, false);
     }
 }

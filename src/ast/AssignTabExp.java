@@ -1,5 +1,8 @@
 package ast;
 
+import table.Table;
+import table.VarIdentificateur;
+
 /**
  * Created by thomas on 29/02/16.
  */

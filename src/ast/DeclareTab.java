@@ -40,6 +40,6 @@ public class DeclareTab extends Assign {
 
     public void insertIntoTable(Table table){
         VarIdentificateur varIdentificateur = new VarIdentificateur(t, id);
-        table.addTopBlock(varIdentificateur);
+        table.addTopBlock(varIdentificateur,isGlobal);
     }
 }

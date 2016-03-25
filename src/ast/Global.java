@@ -10,6 +10,7 @@ public class Global extends Ast {
     public Global(Position pos, Affectation affectation) {
         this.pos = pos;
         this.affectation = affectation;
+        this.affectation.assign.isGlobal = true;
     }
 
     public String toString() {
