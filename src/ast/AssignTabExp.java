@@ -1,5 +1,7 @@
 package ast;
 
+import exceptions.ReferenceIndefinie;
+import exceptions.TypeIncoherent;
 import table.Table;
 import table.VarIdentificateur;
 
@@ -23,4 +25,18 @@ public class AssignTabExp extends Assign {
         return nameTab + "[" + expParam.toString() + "] = " + exp.toString();
     }
 
+    @Override
+    public void verifSemantique() throws Exception{
+        if(!table.lookUp(nameTab,false)){
+            throw new ReferenceIndefinie(nameTab);
+        }else{
+            if(!(expParam.getType() == Type.EnumType.INT)){
+                throw new TypeIncoherent(expParam.getType().toString(), "int");
+            }else {
+                if(!(exp.getType() == table.lookUp(nameTab, false))){
+
+                }
+            }
+        }
+    }
 }

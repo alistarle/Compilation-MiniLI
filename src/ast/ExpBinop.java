@@ -13,4 +13,9 @@ public class ExpBinop extends Expression {
 	public String toString() {
 		return left.toString() + op.toString() + right.toString();
 	}
+
+	@Override
+	public Type.EnumType getType() {
+		return Type.EnumType.BOOLEAN;
+	}
 }

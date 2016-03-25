@@ -31,11 +31,16 @@ public class AssignExp extends Assign {
         }
     }
 
-    public void insertIntoTable(Table table){
+    public void insertIntoTable(){
         //declaration
         if(!isNull()){
             VarIdentificateur varId = new VarIdentificateur(t, var);
             table.addTopBlock(varId,isGlobal);
         }
+    }
+
+    @Override
+    public void verifSemantique() {
+
     }
 }

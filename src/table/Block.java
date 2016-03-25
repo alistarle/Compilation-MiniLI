@@ -1,5 +1,7 @@
 package table;
 
+import ast.Type;
+
 import java.util.ArrayList;
 
 /**
@@ -27,7 +29,19 @@ public class Block {
         return !exists;
     }
 
-    boolean exists(AbstractIdentificateur i){
-        return identificateurs.contains(i);
+    public Type.EnumType exists(String n,boolean isFunction){
+        Type.EnumType t = null;
+        for(AbstractIdentificateur ident : identificateurs){
+            if(ident.nom.equals(n)){
+                if(isFunction && ident instanceof FunctionIdentificateur) {
+                    t = ident.t;
+                    break;
+                }else if(!isFunction && ident instanceof VarIdentificateur) {
+                    t = ident.t;
+                    break;
+                }
+            }
+        }
+        return t;
     }
 }

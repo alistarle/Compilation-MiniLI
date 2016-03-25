@@ -14,4 +14,10 @@ public class ExpFunctionCall extends Expression {
     public String toString() {
         return fc.toString();
     }
+
+    @Override
+    public Type.EnumType getType(){
+        return null;
+    }
+
 }

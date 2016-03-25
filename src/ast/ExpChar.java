@@ -12,4 +12,9 @@ public class ExpChar extends Expression {
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public Type.EnumType getType() {
+        return Type.EnumType.CHAR;
+    }
 }

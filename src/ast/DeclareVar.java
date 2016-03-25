@@ -20,8 +20,8 @@ public class DeclareVar extends Assign{
         return t.toString() + " " + var;
     }
 
-    public void insertIntoTable(Table table){
+    public void insertIntoTable(){
         VarIdentificateur varId = new VarIdentificateur(t, var);
-        table.addTopBlock(varId);
+        table.addTopBlock(varId,isGlobal);
     }
 }
