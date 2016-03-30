@@ -44,4 +44,15 @@ public class Block {
         }
         return t;
     }
+
+    public FunctionIdentificateur getFunc(String n){
+        for(AbstractIdentificateur ident : identificateurs) {
+            if (ident.nom.equals(n)) {
+                if (ident instanceof FunctionIdentificateur) {
+                    return (FunctionIdentificateur)ident;
+                }
+            }
+        }
+        return null;
+    }
 }

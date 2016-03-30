@@ -16,7 +16,7 @@ public class Affectation extends Ast {
     }
 
     @Override
-    public void verifSemantique(){
+    public void verifSemantique() throws Exception{
         assign.verifSemantique();
     }
 }

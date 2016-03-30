@@ -26,4 +26,13 @@ public class RetExpression extends Instruction{
             return "RETURN " + exp.toString() + ";";
         }
     }
+
+    public Type.EnumType getType() throws Exception{
+        return exp.getType();
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        exp.verifSemantique();
+    }
 }

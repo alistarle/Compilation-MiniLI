@@ -1,5 +1,8 @@
 package ast;
 
+import exceptions.ReferenceIndefinie;
+import exceptions.TypeIncoherent;
+import exceptions.WrongIndex;
 import table.Table;
 import table.VarIdentificateur;
 
@@ -38,8 +41,25 @@ public class DeclareTab extends Assign {
         }
     }
 
-    public void insertIntoTable(){
-        VarIdentificateur varIdentificateur = new VarIdentificateur(t, id);
-        table.addTopBlock(varIdentificateur,isGlobal);
+    public void insertIntoTable() throws Exception{
+        Type.EnumType t = table.lookUp(id,false);
+        if(t != null) {
+            VarIdentificateur varIdentificateur = new VarIdentificateur(t, id);
+            table.addTopBlock(varIdentificateur, isGlobal);
+        }else{
+            throw new ReferenceIndefinie(id);
+        }
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        if(cstIsNull()){
+            Type.EnumType t = table.lookUp(idParam,false);
+            if(t != Type.EnumType.INT){
+                throw new TypeIncoherent(t.toString(), "int");
+            }
+        }else if(cst <= 0){
+            throw new WrongIndex(cst);
+        }
     }
 }

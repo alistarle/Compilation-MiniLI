@@ -1,5 +1,7 @@
 package ast;
 
+import exceptions.ReferenceIndefinie;
+
 /**
  * Created by thomas on 24/02/16.
  */
@@ -16,8 +18,17 @@ public class ExpFunctionCall extends Expression {
     }
 
     @Override
-    public Type.EnumType getType(){
-        return null;
+    public Type.EnumType getType() throws Exception{
+        Type.EnumType t = table.lookUp(fc.id,true);
+        if(t!=null){
+            return t;
+        }else{
+            throw new ReferenceIndefinie(fc.id);
+        }
     }
 
+    @Override
+    public void verifSemantique() throws Exception {
+        fc.verifSemantique();
+    }
 }

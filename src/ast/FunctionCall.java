@@ -1,5 +1,8 @@
 package ast;
 
+import exceptions.ReferenceIndefinie;
+import table.FunctionIdentificateur;
+
 import java.util.List;
 
 /**
@@ -28,5 +31,14 @@ public class FunctionCall extends Instruction {
         s.append(")");
 
         return s.toString() + ";";
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        FunctionIdentificateur f = table.getFunc(id);
+        //probleme parametres
+        if(f == null){
+            throw new ReferenceIndefinie(id);
+        }
     }
 }

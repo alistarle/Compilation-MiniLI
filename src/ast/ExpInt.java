@@ -9,4 +9,14 @@ public class ExpInt extends Expression {
 	public String toString() {
 		return String.valueOf(value);
 	}
+
+	@Override
+	public Type.EnumType getType() throws Exception {
+		return Type.EnumType.INT;
+	}
+
+	@Override
+	public void verifSemantique() throws Exception {
+
+	}
 }

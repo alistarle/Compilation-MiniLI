@@ -1,5 +1,7 @@
 package ast;
 
+import exceptions.TypeIncoherent;
+
 import java.util.List;
 
 /**
@@ -31,5 +33,23 @@ public class ControlIf extends Control {
             s.append(i.toString() + "\n");
         }
         return s.toString() + "}";
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        if(exp.getType()!= Type.EnumType.BOOLEAN){
+            throw new TypeIncoherent(exp.getType().toString(),"Boolean");
+        }
+
+        table.newBlock();
+
+        for(Instruction i:lif){
+            i.verifSemantique();
+        }
+
+        for(Instruction i:lelse){
+            i.verifSemantique();
+        }
+        table.popBlock();
     }
 }

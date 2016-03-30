@@ -17,4 +17,8 @@ public class Global extends Ast {
         return affectation.toString() + ";";
     }
 
+    @Override
+    public void verifSemantique() throws Exception {
+        affectation.verifSemantique();
+    }
 }

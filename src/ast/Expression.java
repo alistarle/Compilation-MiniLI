@@ -1,5 +1,5 @@
 package ast;
 
 public abstract class Expression extends Ast {
-	abstract public Type.EnumType getType();
+	abstract public Type.EnumType getType() throws Exception;
 }

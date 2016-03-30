@@ -26,4 +26,15 @@ public class Program extends Ast {
 
 		return s.toString();
 	}
+
+	@Override
+	public void verifSemantique() throws Exception {
+		for(Global g:global){
+			g.verifSemantique();
+		}
+
+		for(Function f:function){
+			f.verifSemantique();
+		}
+	}
 }

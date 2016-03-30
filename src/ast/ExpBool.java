@@ -17,4 +17,9 @@ public class ExpBool extends Expression {
     public Type.EnumType getType() {
         return Type.EnumType.BOOLEAN;
     }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }

@@ -18,8 +18,12 @@ public class Table {
         globals = new Stack<Block>();
     }
 
-    public  void pushBlock(Block b){
+    public void pushBlock(Block b){
         blocks.push(b);
+    }
+
+    public void newBlock(){
+        blocks.push(new Block());
     }
 
     public void addTopBlock(AbstractIdentificateur i,boolean isGlobal){
@@ -41,22 +45,35 @@ public class Table {
         }
     }
 
-    public boolean lookUp(String n,boolean isFunction){
-        boolean exists = false;
+    public Type.EnumType lookUp(String n,boolean isFunction) {
         try {
-            Block b = blocks.peek();
-            if(b.exists(n,isFunction) != null){
-                exists = true;
+            Type.EnumType exists;
+            for (Block b : blocks) {
+                exists = b.exists(n, isFunction);
+                if (b.exists(n, isFunction) != null) {
+                    return exists;
+                }
             }
-        }catch(EmptyStackException e) {
+            exists = globals.peek().exists(n, isFunction);
+            if(exists != null){
+                return exists;
+            }
+        } catch (EmptyStackException e) {
             System.out.println("EMPTY STACK");
         }
-        return exists;
+
+        return null;
     }
 
-
-
     public void popBlock(){
-        blocks.pop();
+        try {
+            blocks.pop();
+        }catch(EmptyStackException e){
+            System.out.println("Pile vide");
+        }
+    }
+
+    public FunctionIdentificateur getFunc(String n){
+        return globals.peek().getFunc(n);
     }
 }
