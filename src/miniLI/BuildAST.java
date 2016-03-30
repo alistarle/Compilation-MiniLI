@@ -62,14 +62,8 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override
     public Ast visitReturnExp(MiniliParser.ReturnExpContext ctx) {
-        RetExpression ret;
-        if(ctx.children.get(1) instanceof MiniliParser.IntContext){
-            ret = new RetExpression(position(ctx), new ExpInt(position(ctx), Integer.parseInt(ctx.children.get(1).getChild(0).toString())));
-        }else{
-            ret = null;
-        }
-        return ret;
-        //return new RetExpression(position(ctx), (Expression)visit(ctx.expression()));
+        Expression exp = visitExpression((ParserRuleContext) ctx.children.get(1).getChild(0));
+        return new RetExpression(position(ctx), (Expression) visit(ctx));
     }
 
     @Override
@@ -79,26 +73,26 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override
     public Ast visitDeclareVar(MiniliParser.DeclareVarContext ctx){
-        return new DeclareVar(position(ctx), Type.t.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString());
+        return new DeclareVar(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString());
+    }
+
+    public Expression visitExpression(ParserRuleContext ctx) {
+        if(ctx instanceof MiniliParser.FunctionCallContext){
+            return (ExpFunctionCall)visitExpFunctionCall((MiniliParser.ExpFunctionCallContext)ctx.parent);
+        } else {
+            return (Expression) visit(ctx);
+        }
     }
 
     @Override
     public Ast visitAssignExp(MiniliParser.AssignExpContext ctx) {
-        AssignExp a = null;
         for(int i = 0; i < ctx.children.size(); i++){
             if("=".equals(ctx.children.get(i).toString())){
-                if(ctx.children.get(i + 1).getChild(0) instanceof MiniliParser.FunctionCallContext){
-                    ExpFunctionCall fc = (ExpFunctionCall)visitExpFunctionCall((MiniliParser.ExpFunctionCallContext)ctx.children.get(i + 1));
-                    a = new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString(), fc);
-                }
-                /*if(ctx.children.get(i + 1) instanceof ){
-
-                }*/
-
-                break;
+                ParserRuleContext expression =(ctx.children.get(i+1) instanceof MiniliParser.ExpFunctionCallContext) ? (ParserRuleContext) ctx.children.get(i + 1).getChild(0) : (ParserRuleContext) ctx.children.get(i + 1); //Find the best matching context
+                return new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString(), visitExpression(expression));
             }
         }
-        return a;
+        return null;
         //return new AssignExp(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
     }
 
@@ -221,7 +215,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
         for(ParseTree child : ctx.children){
             Ast i = visit(child);
             if(i == null) {
-                System.out.println("inull");
+                System.out.println("EOF");
             }
             if(i != null && i instanceof Global){
                 g.add((Global)i);
@@ -262,13 +256,14 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
                 ins.add((Instruction) i);*/
             }
         }
-        System.out.println(ctx.type().size());
         for(int i = 1; i<ctx.type().size() ; i++) {
-            param.put(Type.EnumType.valueOf(ctx.type(i).toString().toUpperCase()),ctx.Identifiant(i).toString());
+            Type type = (Type) this.visitType(ctx.type(i));
+            param.put(type.getType(),ctx.Identifiant(i).toString());
         }
 
-        System.out.println(ctx.type(0).toString().toUpperCase());
-        return new Function(position(ctx), (RetExpression)ins.get(ins.size()-1),ins,param,ctx.Identifiant(0).toString(),Type.EnumType.valueOf(ctx.type(0).toString().toUpperCase()));
+        Type type = (Type) this.visitType(ctx.type(0));
+        System.out.println(type);
+        return new Function(position(ctx), (RetExpression)ins.get(ins.size()-1),ins,param,ctx.Identifiant(0).toString(), type.getType());
 
     }
 

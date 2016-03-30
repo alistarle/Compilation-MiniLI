@@ -23,7 +23,7 @@ public class RetExpression extends Instruction{
         if(isNull()){
             return "RETURN";
         }else {
-            return "RETURN " + exp.toString() + ";";
+            return "RETURN " + exp.toString();
         }
     }
 }

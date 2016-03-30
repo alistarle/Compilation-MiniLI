@@ -29,13 +29,15 @@ public class Function extends Ast {
             s.append(entry.getKey().toString() + " " + entry.getValue().toString() + ",");
         }
         //remove the last ","
-        s.deleteCharAt(s.length()-1);
+        if(param.entrySet().size() > 0) s.deleteCharAt(s.length()-1);
         s.append("){\n");
 
         for(Instruction i: ins){
-            s.append(i.toString() + "\n");
+            s.append("\t" + i.toString() + ";\n");
         }
 
-        return s.toString() + ret.toString();
+        s.append("}");
+
+        return s.toString();
     }
 }

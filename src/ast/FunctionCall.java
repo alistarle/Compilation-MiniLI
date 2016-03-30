@@ -27,6 +27,6 @@ public class FunctionCall extends Instruction {
         s.deleteCharAt(s.length()-1);
         s.append(")");
 
-        return s.toString() + ";";
+        return s.toString();
     }
 }

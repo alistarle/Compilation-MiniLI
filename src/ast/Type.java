@@ -5,12 +5,17 @@ package ast;
  */
 public class Type extends Ast{
     public enum EnumType {INT, CHAR, BOOLEAN, VOID}
-    public static EnumType t;
+    private EnumType t;
 
     public Type(Position pos, EnumType t){
         this.pos = pos;
         this.t = t;
     }
+
+    public EnumType getType() {
+        return t;
+    }
+
     public String toString() {
         return t.toString();
     }
