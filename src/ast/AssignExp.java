@@ -1,5 +1,8 @@
 package ast;
 
+import table.Table;
+import table.VarIdentificateur;
+
 /**
  * Created by thomas on 22/02/16.
  */
@@ -26,5 +29,10 @@ public class AssignExp extends Assign {
         else {
             return t.toString() + " " + var + " = " + exp.toString();
         }
+    }
+
+    public void insertIntoTable(Table table){
+        VarIdentificateur varId = new VarIdentificateur(t, var);
+        table.addTopBlock(varId);
     }
 }

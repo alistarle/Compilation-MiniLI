@@ -7,23 +7,21 @@ import java.util.HashMap;
  * Created by max2 on 10/03/2016.
  */
 public class FunctionIdentificateur extends AbstractIdentificateur{
-    private Type retour;
-    private HashMap<Type,String> paramVal;
-    private HashMap<Type,String> paramRef;
+    private HashMap<Type.EnumType ,String> paramVal;
+    private HashMap<Type.EnumType ,String> paramRef;
 
-    FunctionIdentificateur(Type r, String n, int a){
-        paramRef = new HashMap<Type,String>();
-        paramVal = new HashMap<Type,String>();
-        this.retour = r;
-        this.addresse = a;
+    public FunctionIdentificateur(Type.EnumType r, String n){
+        paramRef = new HashMap<Type.EnumType ,String>();
+        paramVal = new HashMap<Type.EnumType ,String>();
+        this.t = r;
         this.nom = n;
     }
 
-    void addRef(Type t, String n){
+    public void addRef(Type.EnumType t, String n){
         paramRef.put(t,n);
     }
 
-    void addVal(Type t, String n){
+    public void addVal(Type.EnumType t, String n){
         paramVal.put(t,n);
     }
 }
