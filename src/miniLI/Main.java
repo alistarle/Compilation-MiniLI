@@ -24,7 +24,7 @@ public class Main {
 
         // FIRST STEP: analysis
         // Creation of the stream of characters
-        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/abs_fun.miniLI");
+        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/tableau.miniLI");
         FileInputStream fis = new FileInputStream(file);
         ANTLRInputStream input = new ANTLRInputStream(fis);
         // Creation of the lexer for pico programs
