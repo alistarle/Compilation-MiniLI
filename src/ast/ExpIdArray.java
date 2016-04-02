@@ -2,16 +2,16 @@ package ast;
 
 public class ExpIdArray extends Expression{
 
-    public ExpVar id;
+    public String id;
     public Expression exp;
 
-    public ExpIdArray(Position pos, ExpVar id, Expression exp) {
+    public ExpIdArray(Position pos, String id, Expression exp) {
         this.pos = pos;
         this.id = id;
         this.exp = exp;
     }
 
     public String toString() {
-        return id.toString() + "[" + exp.toString() + "]";
+        return id + "[" + exp.toString() + "]";
     }
 }

@@ -1,5 +1,7 @@
 package ast;
 
+import miniLI.StringOffseter;
+
 import java.util.List;
 
 /**
@@ -19,17 +21,24 @@ public class ControlIf extends Control {
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder("if("+exp.toString()+"){\n");
+        StringOffseter s = new StringOffseter("if("+exp.toString()+"){\n", false);
+        StringOffseter.offset++;
         for(Instruction i:lif){
-            s.append(i.toString() + "\n");
+            String semicolon = (i instanceof Control)? "" : ";";
+            s.append(i.toString() + semicolon + "\n");
         }
+        StringOffseter.offset--;
         s.append("}");
         if(lelse.size() != 0){
-            s.append("else{\n");
+            s.appendNoOffset("else{\n");
+            StringOffseter.offset++;
+            for(Instruction i:lelse){
+                String semicolon = (i instanceof Control)? "" : ";";
+                s.append(i.toString() + semicolon +"\n");
+            }
+            StringOffseter.offset--;
+            s.append("}");
         }
-        for(Instruction i:lelse){
-            s.append(i.toString() + "\n");
-        }
-        return s.toString() + "}";
+        return s.toString();
     }
 }

@@ -3,5 +3,16 @@ void main(){
 	in(val);
     int rep = abs(val);
     out(rep);
-    return (abs(val));
+    return 0;
+}
+
+int abs(int val){
+    int rep;
+	if(val < 0){
+		rep = -val;
+	}
+	else{
+		rep = val;
+	}
+	return rep;
 }

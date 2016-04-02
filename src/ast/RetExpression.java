@@ -21,9 +21,9 @@ public class RetExpression extends Instruction{
 
     public String toString() {
         if(isNull()){
-            return "RETURN";
+            return "return";
         }else {
-            return "RETURN " + exp.toString();
+            return "return " + exp.toString();
         }
     }
 }

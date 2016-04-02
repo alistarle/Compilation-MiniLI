@@ -1,6 +1,8 @@
 package ast;
 
 
+import miniLI.StringOffseter;
+
 /**
  * Created by thomas on 22/02/16.
  */
@@ -13,7 +15,7 @@ public class Global extends Ast {
     }
 
     public String toString() {
-        return affectation.toString() + ";";
+        return new StringOffseter(affectation.toString() + ";").toString();
     }
 
 }

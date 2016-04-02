@@ -1,5 +1,6 @@
 package ast;
 
+import miniLI.StringOffseter;
 import table.FunctionIdentificateur;
 import table.Table;
 
@@ -29,20 +30,23 @@ public class Function extends Ast {
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder(type.toString() + " " + id.toString() +"(");
+        StringOffseter s = new StringOffseter(type.toString() + " " + id.toString() +"(");
         for(HashMap.Entry<Type.EnumType, String> entry : paramVal.entrySet()){
-            s.append(entry.getKey().toString() + " " + entry.getValue().toString() + ",");
+            s.appendNoOffset(entry.getKey().toString() + " " + entry.getValue().toString() + ",");
         }
         for(HashMap.Entry<Type.EnumType, String> entry : paramRef.entrySet()){
-            s.append("&" + entry.getKey().toString() + " " + entry.getValue().toString() + ",");
+            s.appendNoOffset("&" + entry.getKey().toString() + " " + entry.getValue().toString() + ",");
         }
         //remove the last ","
-        if(param.entrySet().size() > 0) s.deleteCharAt(s.length()-1);
-        s.append("){\n");
+        if(paramRef.entrySet().size() > 0 || paramVal.entrySet().size() > 0) s.getBuilder().deleteCharAt(s.getBuilder().length()-1);
+        s.appendNoOffset("){\n");
 
+        StringOffseter.offset++;
         for(Instruction i: ins){
-            s.append("\t" + i.toString() + ";\n");
+            String semicolon = (i instanceof Control)? "" : ";";
+            s.append(i.toString() + semicolon + "\n");
         }
+        StringOffseter.offset--;
 
         s.append("}");
 

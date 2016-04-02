@@ -18,6 +18,10 @@ import java.io.FileInputStream;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        //Enable debug in Error Handling
+        ErrorHandling.DEBUG = true;
+
         // FIRST STEP: analysis
         // Creation of the stream of characters
         File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/abs_fun.miniLI");
@@ -32,11 +36,11 @@ public class Main {
         ParseTree tree = parser.minili();
         // Walk the parse tree in order to create an
         // abstract syntax tree
+
         MiniliVisitor<Ast> buildAST = new BuildAST();
         Program program = (Program) buildAST.visit(tree);
 
-
-        System.out.println("Test");
+        System.out.println("=========== Affichage du pretty printer ===========");
         System.out.println(program.toString());
 
     }
