@@ -1,5 +1,7 @@
 package ast;
 
+import miniLI.StringOffseter;
+
 import java.util.List;
 
 /**
@@ -18,10 +20,14 @@ public class ControlWhile extends Control{
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder("while("+ exp.toString() +"){\n");
+        StringOffseter s = new StringOffseter("while("+ exp.toString() +"){\n",false);
+        StringOffseter.offset++;
         for (Instruction i : ins) {
-            s.append(i.toString() + "\n");
+            String semicolon = (i instanceof Control)? "" : ";";
+            s.append(i.toString() + semicolon + "\n");
         }
-        return s.toString() + "}";
+        StringOffseter.offset--;
+        s.append("}");
+        return s.toString();
     }
 }

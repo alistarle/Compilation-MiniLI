@@ -47,7 +47,7 @@ global : GLOBAL affectation ';';
 
 affectation : type Identifiant'['(Constante|Identifiant)']' #DeclareTab
     | Identifiant'['expression']' '=' expression #AssignTabExp
-    | type? Identifiant '=' SUB?expression # AssignExp
+    | type? Identifiant '=' expression # AssignExp
     | type Identifiant #DeclareVar
     ;
 
@@ -62,7 +62,7 @@ instruction : affectation ';'
     ;
 
 ret: RETURN expression ';' #ReturnExp
-    | RETURN #ReturnOnly
+    | RETURN ';' #ReturnOnly
     ;
 
 instructionList: (instruction)*
@@ -78,7 +78,7 @@ expression : expression op=(MUL|DIV) expression #MulDiv
 	| expression op=(EQ|NEQ) expression #Equal
 	| expression op=(AND|OR) expression #Logic
 	| op=NOT expression                  #LogicNot
-	| Identifiant						 #Id
+	| SUB?Identifiant						 #Id
 	| Identifiant'['expression']'        #IdArray
 	| BOOLEAN                            #Boolean
 	| CHAR                               #Char

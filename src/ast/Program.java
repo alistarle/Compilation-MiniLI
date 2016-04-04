@@ -1,5 +1,7 @@
 package ast;
 
+import miniLI.StringOffseter;
+
 import java.util.*;
 
 public class Program extends Ast {
@@ -13,8 +15,10 @@ public class Program extends Ast {
 		this.global = global;
 	}
 
+
+
 	public String toString() {
-		StringBuilder s = new StringBuilder();
+		StringOffseter s = new StringOffseter();
 
 		for(Global g:global){
 			s.append(g.toString()+"\n");

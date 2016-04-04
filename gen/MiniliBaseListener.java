@@ -1,4 +1,4 @@
-// Generated from C:/Users/max2/IdeaProjects/Compilation-MiniLI\Minili.g4 by ANTLR 4.5.1
+// Generated from /Users/alistarle/Documents/Master/Compilation/src/Minili.g4 by ANTLR 4.5.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -22,18 +22,6 @@ public class MiniliBaseListener implements MiniliListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(MiniliParser.ProgramContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIinstruction(MiniliParser.IinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIinstruction(MiniliParser.IinstructionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -63,13 +51,49 @@ public class MiniliBaseListener implements MiniliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAffectation(MiniliParser.AffectationContext ctx) { }
+	@Override public void enterDeclareTab(MiniliParser.DeclareTabContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAffectation(MiniliParser.AffectationContext ctx) { }
+	@Override public void exitDeclareTab(MiniliParser.DeclareTabContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignTabExp(MiniliParser.AssignTabExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignTabExp(MiniliParser.AssignTabExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignExp(MiniliParser.AssignExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignExp(MiniliParser.AssignExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeclareVar(MiniliParser.DeclareVarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclareVar(MiniliParser.DeclareVarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -99,73 +123,73 @@ public class MiniliBaseListener implements MiniliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign(MiniliParser.AssignContext ctx) { }
+	@Override public void enterInstruction(MiniliParser.InstructionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign(MiniliParser.AssignContext ctx) { }
+	@Override public void exitInstruction(MiniliParser.InstructionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionCalll(MiniliParser.FunctionCalllContext ctx) { }
+	@Override public void enterReturnExp(MiniliParser.ReturnExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionCalll(MiniliParser.FunctionCalllContext ctx) { }
+	@Override public void exitReturnExp(MiniliParser.ReturnExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterControl(MiniliParser.ControlContext ctx) { }
+	@Override public void enterReturnOnly(MiniliParser.ReturnOnlyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitControl(MiniliParser.ControlContext ctx) { }
+	@Override public void exitReturnOnly(MiniliParser.ReturnOnlyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRetour(MiniliParser.RetourContext ctx) { }
+	@Override public void enterInstructionList(MiniliParser.InstructionListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRetour(MiniliParser.RetourContext ctx) { }
+	@Override public void exitInstructionList(MiniliParser.InstructionListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRet(MiniliParser.RetContext ctx) { }
+	@Override public void enterControleIf(MiniliParser.ControleIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRet(MiniliParser.RetContext ctx) { }
+	@Override public void exitControleIf(MiniliParser.ControleIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterControle(MiniliParser.ControleContext ctx) { }
+	@Override public void enterControleWhile(MiniliParser.ControleWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitControle(MiniliParser.ControleContext ctx) { }
+	@Override public void exitControleWhile(MiniliParser.ControleWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -3,10 +3,11 @@ void main(){
 	int rep;
 	in(val);
 	if(val < 0){
-		rep = - val;
+		rep = val;
 	}
 	else{
 		rep = val;
 	}
 	out(rep);
+	return 0;
 }

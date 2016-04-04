@@ -1,4 +1,4 @@
-// Generated from C:/Users/max2/IdeaProjects/Compilation-MiniLI\Minili.g4 by ANTLR 4.5.1
+// Generated from /Users/alistarle/Documents/Master/Compilation/src/Minili.g4 by ANTLR 4.5.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -18,16 +18,6 @@ public interface MiniliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(MiniliParser.ProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MiniliParser#iinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void enterIinstruction(MiniliParser.IinstructionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MiniliParser#iinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void exitIinstruction(MiniliParser.IinstructionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniliParser#type}.
 	 * @param ctx the parse tree
@@ -49,15 +39,53 @@ public interface MiniliListener extends ParseTreeListener {
 	 */
 	void exitGlobal(MiniliParser.GlobalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniliParser#affectation}.
+	 * Enter a parse tree produced by the {@code DeclareTab}
+	 * labeled alternative in {@link MiniliParser#affectation}.
 	 * @param ctx the parse tree
 	 */
-	void enterAffectation(MiniliParser.AffectationContext ctx);
+	void enterDeclareTab(MiniliParser.DeclareTabContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniliParser#affectation}.
+	 * Exit a parse tree produced by the {@code DeclareTab}
+	 * labeled alternative in {@link MiniliParser#affectation}.
 	 * @param ctx the parse tree
 	 */
-	void exitAffectation(MiniliParser.AffectationContext ctx);
+	void exitDeclareTab(MiniliParser.DeclareTabContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignTabExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignTabExp(MiniliParser.AssignTabExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignTabExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignTabExp(MiniliParser.AssignTabExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignExp(MiniliParser.AssignExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignExp(MiniliParser.AssignExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DeclareVar}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclareVar(MiniliParser.DeclareVarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DeclareVar}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclareVar(MiniliParser.DeclareVarContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniliParser#function}.
 	 * @param ctx the parse tree
@@ -79,73 +107,73 @@ public interface MiniliListener extends ParseTreeListener {
 	 */
 	void exitFunctionCall(MiniliParser.FunctionCallContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Enter a parse tree produced by {@link MiniliParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssign(MiniliParser.AssignContext ctx);
+	void enterInstruction(MiniliParser.InstructionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Exit a parse tree produced by {@link MiniliParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssign(MiniliParser.AssignContext ctx);
+	void exitInstruction(MiniliParser.InstructionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code FunctionCalll}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Enter a parse tree produced by the {@code ReturnExp}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionCalll(MiniliParser.FunctionCalllContext ctx);
+	void enterReturnExp(MiniliParser.ReturnExpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code FunctionCalll}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Exit a parse tree produced by the {@code ReturnExp}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionCalll(MiniliParser.FunctionCalllContext ctx);
+	void exitReturnExp(MiniliParser.ReturnExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Control}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Enter a parse tree produced by the {@code ReturnOnly}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 */
-	void enterControl(MiniliParser.ControlContext ctx);
+	void enterReturnOnly(MiniliParser.ReturnOnlyContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Control}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Exit a parse tree produced by the {@code ReturnOnly}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 */
-	void exitControl(MiniliParser.ControlContext ctx);
+	void exitReturnOnly(MiniliParser.ReturnOnlyContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code retour}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Enter a parse tree produced by {@link MiniliParser#instructionList}.
 	 * @param ctx the parse tree
 	 */
-	void enterRetour(MiniliParser.RetourContext ctx);
+	void enterInstructionList(MiniliParser.InstructionListContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code retour}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Exit a parse tree produced by {@link MiniliParser#instructionList}.
 	 * @param ctx the parse tree
 	 */
-	void exitRetour(MiniliParser.RetourContext ctx);
+	void exitInstructionList(MiniliParser.InstructionListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniliParser#ret}.
+	 * Enter a parse tree produced by the {@code ControleIf}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 */
-	void enterRet(MiniliParser.RetContext ctx);
+	void enterControleIf(MiniliParser.ControleIfContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniliParser#ret}.
+	 * Exit a parse tree produced by the {@code ControleIf}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 */
-	void exitRet(MiniliParser.RetContext ctx);
+	void exitControleIf(MiniliParser.ControleIfContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniliParser#controle}.
+	 * Enter a parse tree produced by the {@code ControleWhile}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 */
-	void enterControle(MiniliParser.ControleContext ctx);
+	void enterControleWhile(MiniliParser.ControleWhileContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniliParser#controle}.
+	 * Exit a parse tree produced by the {@code ControleWhile}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 */
-	void exitControle(MiniliParser.ControleContext ctx);
+	void exitControleWhile(MiniliParser.ControleWhileContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Par}
 	 * labeled alternative in {@link MiniliParser#expression}.

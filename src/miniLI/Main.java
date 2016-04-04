@@ -11,8 +11,6 @@ import parser.MiniliVisitor;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.InputStream;
 
 /**
  * Created by thomas on 29/02/16.
@@ -20,9 +18,13 @@ import java.io.InputStream;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        //Enable debug in Error Handling
+        ErrorHandling.DEBUG = true;
+
         // FIRST STEP: analysis
         // Creation of the stream of characters
-        File file = new File("C:\\Users\\max2\\IdeaProjects\\Compilation-MiniLI\\exemples\\abs_fun.miniLI");
+        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/tableau.miniLI");
         FileInputStream fis = new FileInputStream(file);
         ANTLRInputStream input = new ANTLRInputStream(fis);
         // Creation of the lexer for pico programs
@@ -34,11 +36,11 @@ public class Main {
         ParseTree tree = parser.minili();
         // Walk the parse tree in order to create an
         // abstract syntax tree
+
         MiniliVisitor<Ast> buildAST = new BuildAST();
         Program program = (Program) buildAST.visit(tree);
 
-
-        System.out.println("Test");
+        System.out.println("=========== Affichage du pretty printer ===========");
         System.out.println(program.toString());
 
     }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/max2/IdeaProjects/Compilation-MiniLI\Minili.g4 by ANTLR 4.5.1
+// Generated from /Users/alistarle/Documents/Master/Compilation/src/Minili.g4 by ANTLR 4.5.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -17,12 +17,6 @@ public interface MiniliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(MiniliParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniliParser#iinstruction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIinstruction(MiniliParser.IinstructionContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MiniliParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -35,11 +29,33 @@ public interface MiniliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGlobal(MiniliParser.GlobalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniliParser#affectation}.
+	 * Visit a parse tree produced by the {@code DeclareTab}
+	 * labeled alternative in {@link MiniliParser#affectation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAffectation(MiniliParser.AffectationContext ctx);
+	T visitDeclareTab(MiniliParser.DeclareTabContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssignTabExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignTabExp(MiniliParser.AssignTabExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssignExp}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignExp(MiniliParser.AssignExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DeclareVar}
+	 * labeled alternative in {@link MiniliParser#affectation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclareVar(MiniliParser.DeclareVarContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniliParser#function}.
 	 * @param ctx the parse tree
@@ -53,45 +69,45 @@ public interface MiniliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionCall(MiniliParser.FunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Visit a parse tree produced by {@link MiniliParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssign(MiniliParser.AssignContext ctx);
+	T visitInstruction(MiniliParser.InstructionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code FunctionCalll}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Visit a parse tree produced by the {@code ReturnExp}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunctionCalll(MiniliParser.FunctionCalllContext ctx);
+	T visitReturnExp(MiniliParser.ReturnExpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Control}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Visit a parse tree produced by the {@code ReturnOnly}
+	 * labeled alternative in {@link MiniliParser#ret}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitControl(MiniliParser.ControlContext ctx);
+	T visitReturnOnly(MiniliParser.ReturnOnlyContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code retour}
-	 * labeled alternative in {@link MiniliParser#instruction}.
+	 * Visit a parse tree produced by {@link MiniliParser#instructionList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRetour(MiniliParser.RetourContext ctx);
+	T visitInstructionList(MiniliParser.InstructionListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniliParser#ret}.
+	 * Visit a parse tree produced by the {@code ControleIf}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRet(MiniliParser.RetContext ctx);
+	T visitControleIf(MiniliParser.ControleIfContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniliParser#controle}.
+	 * Visit a parse tree produced by the {@code ControleWhile}
+	 * labeled alternative in {@link MiniliParser#controle}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitControle(MiniliParser.ControleContext ctx);
+	T visitControleWhile(MiniliParser.ControleWhileContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Par}
 	 * labeled alternative in {@link MiniliParser#expression}.

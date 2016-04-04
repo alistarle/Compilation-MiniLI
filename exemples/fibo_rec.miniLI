@@ -5,6 +5,7 @@ void main(){
 
     rep = fibo(n);
     out(rep);
+    return 0;
 }
 
 int fibo(int n){
@@ -15,4 +16,5 @@ int fibo(int n){
     else{
         return fibo(n-1) + fibo(n-2);
     }
+    return 0;
 }
