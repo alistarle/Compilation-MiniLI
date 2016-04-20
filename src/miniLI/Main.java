@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //Enable debug in Error Handling
-        ErrorHandling.DEBUG = true;
+        ErrorHandling.DEBUG = false;
 
         // FIRST STEP: analysis
         // Creation of the stream of characters

@@ -18,7 +18,7 @@ public class ErrorHandling {
     public static void handleError(CompilationException e)
     {
         if(DEBUG) e.printStackTrace();
-        System.out.println(e.getMessage()+"/"+e.getPos().toString());
+        System.out.println(e.getMessage()+" at "+e.getPos().toString());
         handleCriticalError();
     }
 
@@ -29,5 +29,15 @@ public class ErrorHandling {
     {
         System.out.println("Arrêt du compilateur dû à une erreur de compilation");
         System.exit(0);
+    }
+
+    /**
+     * Behaviour of the compiler when a warning is found
+     *
+     * @param e
+     */
+    public static void handleWarning(Exception e)
+    {
+        System.out.println("Warning : "+e.getMessage());
     }
 }

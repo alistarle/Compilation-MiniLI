@@ -4,6 +4,7 @@ import ast.*;
 import exceptions.CompilationException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 import parser.MiniliBaseVisitor;
 import parser.MiniliLexer;
 import parser.MiniliParser;
@@ -79,12 +80,26 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override
     public Ast visitDeclareVar(MiniliParser.DeclareVarContext ctx){
-        return new DeclareVar(position(ctx), Type.EnumType.valueOf(ctx.getChild(0).getChild(0).toString().toUpperCase()), ctx.Identifiant().toString());
+        boolean ref;
+        if(ctx.children.indexOf(ctx.type()) > 0) {
+            ParseTree term = ctx.children.get(ctx.children.indexOf(ctx.type())-1);
+            ref = term instanceof TerminalNodeImpl && term.toString().equals("&");
+        } else {
+            ref = false;
+        }
+        return new DeclareVar(position(ctx), ((Type) visitType(ctx.type(),ref)).getType(), ctx.Identifiant().toString());
     }
 
     @Override
     public Ast visitAssignExp(MiniliParser.AssignExpContext ctx) {
-        Type.EnumType type = (ctx.type() != null) ? ((Type) visitType(ctx.type())).getType() : null;
+        boolean ref;
+        if(ctx.children.indexOf(ctx.type()) > 0) {
+            ParseTree term = ctx.children.get(ctx.children.indexOf(ctx.type())-1);
+            ref = term instanceof TerminalNodeImpl && term.toString().equals("&");
+        } else {
+            ref = false;
+        }
+        Type.EnumType type = (ctx.type() != null) ? ((Type) visitType(ctx.type(),ref)).getType() : null;
         return new AssignExp(position(ctx), type, ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
     }
 
@@ -97,7 +112,14 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
     public Ast visitDeclareTab(MiniliParser.DeclareTabContext ctx) {
         Integer constante = (ctx.Constante() != null) ? Integer.parseInt(ctx.Constante().toString()) : null;
         String idParam = (ctx.Identifiant(1) != null) ? ctx.Identifiant(1).toString() : null;
-        return new DeclareTab(position(ctx), ((Type) visitType(ctx.type())).getType(),  constante , idParam, ctx.Identifiant(0).toString());
+        boolean ref;
+        if(ctx.children.indexOf(ctx.type()) > 0) {
+            ParseTree term = ctx.children.get(ctx.children.indexOf(ctx.type())-1);
+            ref = term instanceof TerminalNodeImpl && term.toString().equals("&");
+        } else {
+            ref = false;
+        }
+        return new DeclareTab(position(ctx), ((Type) visitType(ctx.type(),ref)).getType(),  constante , idParam, ctx.Identifiant(0).toString());
     }
 
     @Override
@@ -181,15 +203,15 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
         return new ExpInt(position(ctx), integer);
     }
 
-    @Override public Ast visitType(MiniliParser.TypeContext ctx) {
+    public Ast visitType(MiniliParser.TypeContext ctx, boolean ref) {
         if(ctx.Int() != null)
-            return new Type(position(ctx), Type.EnumType.INT);
+            return new Type(position(ctx), (ref) ? Type.EnumType.INTREF : Type.EnumType.INTVAL);
         else if(ctx.Boolean() != null)
-            return new Type(position(ctx), Type.EnumType.BOOLEAN);
+            return new Type(position(ctx), (ref) ? Type.EnumType.BOOLREF : Type.EnumType.BOOLVAL);
         else if(ctx.Char() != null)
-            return new Type(position(ctx), Type.EnumType.CHAR);
+            return new Type(position(ctx), (ref) ? Type.EnumType.CHARREF : Type.EnumType.CHARVAL);
         else if(ctx.Void() != null)
-            return new Type(position(ctx), Type.EnumType.VOID);
+            return new Type(position(ctx), (ref) ? Type.EnumType.VOIDREF : Type.EnumType.VOIDVAL);
         return null;
     }
 
@@ -233,11 +255,18 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
         }
 
         for(int i = 1; i<ctx.type().size() ; i++) {
-            Type type = (Type) this.visitType(ctx.type(i));
+            boolean ref;
+            if(ctx.children.indexOf(ctx.type()) > 0) {
+                ParseTree term = ctx.children.get(ctx.children.indexOf(ctx.type(i))-1);
+                ref = term instanceof TerminalNodeImpl && term.toString().equals("&");
+            } else {
+                ref = false;
+            }
+            Type type = (Type) this.visitType(ctx.type(i),ref);
             param.put(type.getType(),ctx.Identifiant(i).toString());
         }
 
-        Type type = (Type) this.visitType(ctx.type(0));
+        Type type = (Type) this.visitType(ctx.type(0),false);
 
         RetExpression retExpression = null;
         try {
@@ -245,7 +274,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
         } catch(ClassCastException e) {
             ErrorHandling.handleError(new CompilationException(position(ctx),"Erreur dans l'instruction return", e));
         }
-        return new Function(position(ctx), retExpression,ins,param,param,ctx.Identifiant(0).toString(), type.getType());
+        return new Function(position(ctx), retExpression,ins,param,ctx.Identifiant(0).toString(), type.getType());
 
     }
 

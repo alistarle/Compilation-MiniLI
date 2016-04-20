@@ -1,4 +1,4 @@
-void main(){
+void main(&int test){
     out('Pour saisir un tableau taper s');
     out('Pour calculer la moyenne taper m');
     out('Pour trier le tableau taper t');
@@ -56,5 +56,5 @@ void main(){
             out(' ');
         }
     }
-    return 0;
+    return;
 }
