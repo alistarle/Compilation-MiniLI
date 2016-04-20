@@ -17,10 +17,10 @@ public class MiniliParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, Int=11, Boolean=12, Char=13, Void=14, ADD=15, SUB=16, MUL=17, 
-		DIV=18, GT=19, GTE=20, LT=21, LTE=22, EQ=23, NEQ=24, AND=25, OR=26, NOT=27, 
-		IF=28, ELSE=29, WHILE=30, GLOBAL=31, RETURN=32, Constante=33, Identifiant=34, 
-		BOOLEAN=35, CHAR=36, WS=37;
+		T__9=10, Int=11, Boolean=12, Char=13, Void=14, BOOLEAN=15, ADD=16, SUB=17, 
+		MUL=18, DIV=19, GT=20, GTE=21, LT=22, LTE=23, EQ=24, NEQ=25, AND=26, OR=27, 
+		NOT=28, IF=29, ELSE=30, WHILE=31, GLOBAL=32, RETURN=33, Constante=34, 
+		Identifiant=35, CHAR=36, WS=37;
 	public static final int
 		RULE_minili = 0, RULE_type = 1, RULE_global = 2, RULE_affectation = 3, 
 		RULE_function = 4, RULE_functionCall = 5, RULE_instruction = 6, RULE_ret = 7, 
@@ -32,15 +32,15 @@ public class MiniliParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "';'", "'['", "']'", "'='", "'('", "'&'", "','", "')'", "'{'", "'}'", 
-		"'int'", "'boolean'", "'char'", "'void'", "'+'", "'-'", "'*'", "'/'", 
+		"'int'", "'boolean'", "'char'", "'void'", null, "'+'", "'-'", "'*'", "'/'", 
 		"'>'", "'>='", "'<'", "'<='", "'=='", "'!='", "'&&'", "'||'", "'!'", "'if'", 
 		"'else'", "'while'", "'global'", "'return'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, null, null, "Int", 
-		"Boolean", "Char", "Void", "ADD", "SUB", "MUL", "DIV", "GT", "GTE", "LT", 
-		"LTE", "EQ", "NEQ", "AND", "OR", "NOT", "IF", "ELSE", "WHILE", "GLOBAL", 
-		"RETURN", "Constante", "Identifiant", "BOOLEAN", "CHAR", "WS"
+		"Boolean", "Char", "Void", "BOOLEAN", "ADD", "SUB", "MUL", "DIV", "GT", 
+		"GTE", "LT", "LTE", "EQ", "NEQ", "AND", "OR", "NOT", "IF", "ELSE", "WHILE", 
+		"GLOBAL", "RETURN", "Constante", "Identifiant", "CHAR", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -715,7 +715,7 @@ public class MiniliParser extends Parser {
 			match(T__4);
 			setState(118);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << Int) | (1L << Boolean) | (1L << Char) | (1L << Void) | (1L << SUB) | (1L << NOT) | (1L << Constante) | (1L << Identifiant) | (1L << BOOLEAN) | (1L << CHAR))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << Int) | (1L << Boolean) | (1L << Char) | (1L << Void) | (1L << BOOLEAN) | (1L << SUB) | (1L << NOT) | (1L << Constante) | (1L << Identifiant) | (1L << CHAR))) != 0)) {
 				{
 				setState(115);
 				_la = _input.LA(1);
@@ -773,7 +773,7 @@ public class MiniliParser extends Parser {
 					setState(131); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << Int) | (1L << Boolean) | (1L << Char) | (1L << Void) | (1L << SUB) | (1L << NOT) | (1L << Constante) | (1L << Identifiant) | (1L << BOOLEAN) | (1L << CHAR))) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << Int) | (1L << Boolean) | (1L << Char) | (1L << Void) | (1L << BOOLEAN) | (1L << SUB) | (1L << NOT) | (1L << Constante) | (1L << Identifiant) | (1L << CHAR))) != 0) );
 				}
 				}
 				setState(137);
@@ -1502,58 +1502,58 @@ public class MiniliParser extends Parser {
 				break;
 			case 2:
 				{
-				_localctx = new IdContext(_localctx);
+				_localctx = new IdArrayContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(197);
-				_la = _input.LA(1);
-				if (_la==SUB) {
-					{
-					setState(196);
-					match(SUB);
-					}
-				}
-
-				setState(199);
+				setState(196);
 				match(Identifiant);
+				setState(197);
+				match(T__1);
+				setState(198);
+				expression(0);
+				setState(199);
+				match(T__2);
 				}
 				break;
 			case 3:
 				{
-				_localctx = new IdArrayContext(_localctx);
+				_localctx = new BooleanContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(200);
-				match(Identifiant);
 				setState(201);
-				match(T__1);
-				setState(202);
-				expression(0);
-				setState(203);
-				match(T__2);
+				match(BOOLEAN);
 				}
 				break;
 			case 4:
 				{
-				_localctx = new BooleanContext(_localctx);
+				_localctx = new CharContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(205);
-				match(BOOLEAN);
+				setState(202);
+				match(CHAR);
 				}
 				break;
 			case 5:
 				{
-				_localctx = new CharContext(_localctx);
+				_localctx = new IntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
+				setState(204);
+				_la = _input.LA(1);
+				if (_la==SUB) {
+					{
+					setState(203);
+					match(SUB);
+					}
+				}
+
 				setState(206);
-				match(CHAR);
+				match(Constante);
 				}
 				break;
 			case 6:
 				{
-				_localctx = new IntContext(_localctx);
+				_localctx = new IdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(208);
@@ -1566,7 +1566,7 @@ public class MiniliParser extends Parser {
 				}
 
 				setState(210);
-				match(Constante);
+				match(Identifiant);
 				}
 				break;
 			case 7:
@@ -1751,30 +1751,30 @@ public class MiniliParser extends Parser {
 		"\5\t\u009f\n\t\3\n\7\n\u00a2\n\n\f\n\16\n\u00a5\13\n\3\13\3\13\3\13\3"+
 		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u00b3\n\13\3\13\3\13"+
 		"\3\13\3\13\3\13\3\13\7\13\u00bb\n\13\f\13\16\13\u00be\13\13\3\13\3\13"+
-		"\5\13\u00c2\n\13\3\f\3\f\3\f\3\f\5\f\u00c8\n\f\3\f\3\f\3\f\3\f\3\f\3\f"+
-		"\3\f\3\f\3\f\5\f\u00d3\n\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00db\n\f\3\f\3"+
+		"\5\13\u00c2\n\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00cf"+
+		"\n\f\3\f\3\f\5\f\u00d3\n\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00db\n\f\3\f\3"+
 		"\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\7\f\u00ec\n\f\f"+
 		"\f\16\f\u00ef\13\f\3\f\2\3\26\r\2\4\6\b\n\f\16\20\22\24\26\2\t\3\2\r\20"+
-		"\3\2#$\3\2\23\24\3\2\21\22\3\2\25\30\3\2\31\32\3\2\33\34\u0111\2\34\3"+
+		"\3\2$%\3\2\24\25\3\2\22\23\3\2\26\31\3\2\32\33\3\2\34\35\u0111\2\34\3"+
 		"\2\2\2\4!\3\2\2\2\6#\3\2\2\2\b=\3\2\2\2\n?\3\2\2\2\fp\3\2\2\2\16\u0096"+
 		"\3\2\2\2\20\u009e\3\2\2\2\22\u00a3\3\2\2\2\24\u00c1\3\2\2\2\26\u00da\3"+
 		"\2\2\2\30\33\5\n\6\2\31\33\5\6\4\2\32\30\3\2\2\2\32\31\3\2\2\2\33\36\3"+
 		"\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\37\3\2\2\2\36\34\3\2\2\2\37 \7\2"+
-		"\2\3 \3\3\2\2\2!\"\t\2\2\2\"\5\3\2\2\2#$\7!\2\2$%\5\b\5\2%&\7\3\2\2&\7"+
-		"\3\2\2\2\'(\5\4\3\2()\7$\2\2)*\7\4\2\2*+\t\3\2\2+,\7\5\2\2,>\3\2\2\2-"+
-		".\7$\2\2./\7\4\2\2/\60\5\26\f\2\60\61\7\5\2\2\61\62\7\6\2\2\62\63\5\26"+
+		"\2\3 \3\3\2\2\2!\"\t\2\2\2\"\5\3\2\2\2#$\7\"\2\2$%\5\b\5\2%&\7\3\2\2&"+
+		"\7\3\2\2\2\'(\5\4\3\2()\7%\2\2)*\7\4\2\2*+\t\3\2\2+,\7\5\2\2,>\3\2\2\2"+
+		"-.\7%\2\2./\7\4\2\2/\60\5\26\f\2\60\61\7\5\2\2\61\62\7\6\2\2\62\63\5\26"+
 		"\f\2\63>\3\2\2\2\64\66\5\4\3\2\65\64\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2"+
-		"\2\678\7$\2\289\7\6\2\29>\5\26\f\2:;\5\4\3\2;<\7$\2\2<>\3\2\2\2=\'\3\2"+
-		"\2\2=-\3\2\2\2=\65\3\2\2\2=:\3\2\2\2>\t\3\2\2\2?@\5\4\3\2@A\7$\2\2AH\7"+
-		"\7\2\2BD\7\b\2\2CB\3\2\2\2CD\3\2\2\2DE\3\2\2\2EF\5\4\3\2FG\7$\2\2GI\3"+
+		"\2\678\7%\2\289\7\6\2\29>\5\26\f\2:;\5\4\3\2;<\7%\2\2<>\3\2\2\2=\'\3\2"+
+		"\2\2=-\3\2\2\2=\65\3\2\2\2=:\3\2\2\2>\t\3\2\2\2?@\5\4\3\2@A\7%\2\2AH\7"+
+		"\7\2\2BD\7\b\2\2CB\3\2\2\2CD\3\2\2\2DE\3\2\2\2EF\5\4\3\2FG\7%\2\2GI\3"+
 		"\2\2\2HC\3\2\2\2HI\3\2\2\2I[\3\2\2\2JL\7\t\2\2KJ\3\2\2\2LM\3\2\2\2MK\3"+
 		"\2\2\2MN\3\2\2\2NU\3\2\2\2OQ\7\b\2\2PO\3\2\2\2PQ\3\2\2\2QR\3\2\2\2RS\5"+
-		"\4\3\2ST\7$\2\2TV\3\2\2\2UP\3\2\2\2VW\3\2\2\2WU\3\2\2\2WX\3\2\2\2XZ\3"+
+		"\4\3\2ST\7%\2\2TV\3\2\2\2UP\3\2\2\2VW\3\2\2\2WU\3\2\2\2WX\3\2\2\2XZ\3"+
 		"\2\2\2YK\3\2\2\2Z]\3\2\2\2[Y\3\2\2\2[\\\3\2\2\2\\^\3\2\2\2][\3\2\2\2^"+
 		"_\7\n\2\2_c\7\13\2\2`b\5\16\b\2a`\3\2\2\2be\3\2\2\2ca\3\2\2\2cd\3\2\2"+
 		"\2dg\3\2\2\2ec\3\2\2\2fh\5\20\t\2gf\3\2\2\2gh\3\2\2\2hi\3\2\2\2ij\7\f"+
-		"\2\2j\13\3\2\2\2kn\5\b\5\2ln\7$\2\2mk\3\2\2\2ml\3\2\2\2no\3\2\2\2oq\7"+
-		"\6\2\2pm\3\2\2\2pq\3\2\2\2qr\3\2\2\2rs\7$\2\2sx\7\7\2\2tv\7\b\2\2ut\3"+
+		"\2\2j\13\3\2\2\2kn\5\b\5\2ln\7%\2\2mk\3\2\2\2ml\3\2\2\2no\3\2\2\2oq\7"+
+		"\6\2\2pm\3\2\2\2pq\3\2\2\2qr\3\2\2\2rs\7%\2\2sx\7\7\2\2tv\7\b\2\2ut\3"+
 		"\2\2\2uv\3\2\2\2vw\3\2\2\2wy\5\26\f\2xu\3\2\2\2xy\3\2\2\2y\u0089\3\2\2"+
 		"\2z|\7\t\2\2{z\3\2\2\2|}\3\2\2\2}{\3\2\2\2}~\3\2\2\2~\u0083\3\2\2\2\177"+
 		"\u0081\7\b\2\2\u0080\177\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0082\3\2\2"+
@@ -1785,29 +1785,29 @@ public class MiniliParser extends Parser {
 		"\u008f\5\b\5\2\u008f\u0090\7\3\2\2\u0090\u0097\3\2\2\2\u0091\u0092\5\f"+
 		"\7\2\u0092\u0093\7\3\2\2\u0093\u0097\3\2\2\2\u0094\u0097\5\24\13\2\u0095"+
 		"\u0097\5\20\t\2\u0096\u008e\3\2\2\2\u0096\u0091\3\2\2\2\u0096\u0094\3"+
-		"\2\2\2\u0096\u0095\3\2\2\2\u0097\17\3\2\2\2\u0098\u0099\7\"\2\2\u0099"+
-		"\u009a\5\26\f\2\u009a\u009b\7\3\2\2\u009b\u009f\3\2\2\2\u009c\u009d\7"+
-		"\"\2\2\u009d\u009f\7\3\2\2\u009e\u0098\3\2\2\2\u009e\u009c\3\2\2\2\u009f"+
-		"\21\3\2\2\2\u00a0\u00a2\5\16\b\2\u00a1\u00a0\3\2\2\2\u00a2\u00a5\3\2\2"+
-		"\2\u00a3\u00a1\3\2\2\2\u00a3\u00a4\3\2\2\2\u00a4\23\3\2\2\2\u00a5\u00a3"+
-		"\3\2\2\2\u00a6\u00a7\7\36\2\2\u00a7\u00a8\7\7\2\2\u00a8\u00a9\5\26\f\2"+
-		"\u00a9\u00aa\7\n\2\2\u00aa\u00ab\7\13\2\2\u00ab\u00ac\5\22\n\2\u00ac\u00b2"+
-		"\7\f\2\2\u00ad\u00ae\7\37\2\2\u00ae\u00af\7\13\2\2\u00af\u00b0\5\22\n"+
-		"\2\u00b0\u00b1\7\f\2\2\u00b1\u00b3\3\2\2\2\u00b2\u00ad\3\2\2\2\u00b2\u00b3"+
-		"\3\2\2\2\u00b3\u00c2\3\2\2\2\u00b4\u00b5\7 \2\2\u00b5\u00b6\7\7\2\2\u00b6"+
+		"\2\2\2\u0096\u0095\3\2\2\2\u0097\17\3\2\2\2\u0098\u0099\7#\2\2\u0099\u009a"+
+		"\5\26\f\2\u009a\u009b\7\3\2\2\u009b\u009f\3\2\2\2\u009c\u009d\7#\2\2\u009d"+
+		"\u009f\7\3\2\2\u009e\u0098\3\2\2\2\u009e\u009c\3\2\2\2\u009f\21\3\2\2"+
+		"\2\u00a0\u00a2\5\16\b\2\u00a1\u00a0\3\2\2\2\u00a2\u00a5\3\2\2\2\u00a3"+
+		"\u00a1\3\2\2\2\u00a3\u00a4\3\2\2\2\u00a4\23\3\2\2\2\u00a5\u00a3\3\2\2"+
+		"\2\u00a6\u00a7\7\37\2\2\u00a7\u00a8\7\7\2\2\u00a8\u00a9\5\26\f\2\u00a9"+
+		"\u00aa\7\n\2\2\u00aa\u00ab\7\13\2\2\u00ab\u00ac\5\22\n\2\u00ac\u00b2\7"+
+		"\f\2\2\u00ad\u00ae\7 \2\2\u00ae\u00af\7\13\2\2\u00af\u00b0\5\22\n\2\u00b0"+
+		"\u00b1\7\f\2\2\u00b1\u00b3\3\2\2\2\u00b2\u00ad\3\2\2\2\u00b2\u00b3\3\2"+
+		"\2\2\u00b3\u00c2\3\2\2\2\u00b4\u00b5\7!\2\2\u00b5\u00b6\7\7\2\2\u00b6"+
 		"\u00b7\5\26\f\2\u00b7\u00b8\7\n\2\2\u00b8\u00bc\7\13\2\2\u00b9\u00bb\5"+
 		"\16\b\2\u00ba\u00b9\3\2\2\2\u00bb\u00be\3\2\2\2\u00bc\u00ba\3\2\2\2\u00bc"+
 		"\u00bd\3\2\2\2\u00bd\u00bf\3\2\2\2\u00be\u00bc\3\2\2\2\u00bf\u00c0\7\f"+
 		"\2\2\u00c0\u00c2\3\2\2\2\u00c1\u00a6\3\2\2\2\u00c1\u00b4\3\2\2\2\u00c2"+
-		"\25\3\2\2\2\u00c3\u00c4\b\f\1\2\u00c4\u00c5\7\35\2\2\u00c5\u00db\5\26"+
-		"\f\n\u00c6\u00c8\7\22\2\2\u00c7\u00c6\3\2\2\2\u00c7\u00c8\3\2\2\2\u00c8"+
-		"\u00c9\3\2\2\2\u00c9\u00db\7$\2\2\u00ca\u00cb\7$\2\2\u00cb\u00cc\7\4\2"+
-		"\2\u00cc\u00cd\5\26\f\2\u00cd\u00ce\7\5\2\2\u00ce\u00db\3\2\2\2\u00cf"+
-		"\u00db\7%\2\2\u00d0\u00db\7&\2\2\u00d1\u00d3\7\22\2\2\u00d2\u00d1\3\2"+
-		"\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00db\7#\2\2\u00d5"+
+		"\25\3\2\2\2\u00c3\u00c4\b\f\1\2\u00c4\u00c5\7\36\2\2\u00c5\u00db\5\26"+
+		"\f\n\u00c6\u00c7\7%\2\2\u00c7\u00c8\7\4\2\2\u00c8\u00c9\5\26\f\2\u00c9"+
+		"\u00ca\7\5\2\2\u00ca\u00db\3\2\2\2\u00cb\u00db\7\21\2\2\u00cc\u00db\7"+
+		"&\2\2\u00cd\u00cf\7\23\2\2\u00ce\u00cd\3\2\2\2\u00ce\u00cf\3\2\2\2\u00cf"+
+		"\u00d0\3\2\2\2\u00d0\u00db\7$\2\2\u00d1\u00d3\7\23\2\2\u00d2\u00d1\3\2"+
+		"\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00db\7%\2\2\u00d5"+
 		"\u00d6\7\7\2\2\u00d6\u00d7\5\26\f\2\u00d7\u00d8\7\n\2\2\u00d8\u00db\3"+
-		"\2\2\2\u00d9\u00db\5\f\7\2\u00da\u00c3\3\2\2\2\u00da\u00c7\3\2\2\2\u00da"+
-		"\u00ca\3\2\2\2\u00da\u00cf\3\2\2\2\u00da\u00d0\3\2\2\2\u00da\u00d2\3\2"+
+		"\2\2\2\u00d9\u00db\5\f\7\2\u00da\u00c3\3\2\2\2\u00da\u00c6\3\2\2\2\u00da"+
+		"\u00cb\3\2\2\2\u00da\u00cc\3\2\2\2\u00da\u00ce\3\2\2\2\u00da\u00d2\3\2"+
 		"\2\2\u00da\u00d5\3\2\2\2\u00da\u00d9\3\2\2\2\u00db\u00ed\3\2\2\2\u00dc"+
 		"\u00dd\f\17\2\2\u00dd\u00de\t\4\2\2\u00de\u00ec\5\26\f\20\u00df\u00e0"+
 		"\f\16\2\2\u00e0\u00e1\t\5\2\2\u00e1\u00ec\5\26\f\17\u00e2\u00e3\f\r\2"+
@@ -1817,7 +1817,7 @@ public class MiniliParser extends Parser {
 		"\u00e2\3\2\2\2\u00eb\u00e5\3\2\2\2\u00eb\u00e8\3\2\2\2\u00ec\u00ef\3\2"+
 		"\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\27\3\2\2\2\u00ef\u00ed"+
 		"\3\2\2\2!\32\34\65=CHMPW[cgmpux}\u0080\u0085\u0089\u0096\u009e\u00a3\u00b2"+
-		"\u00bc\u00c1\u00c7\u00d2\u00da\u00eb\u00ed";
+		"\u00bc\u00c1\u00ce\u00d2\u00da\u00eb\u00ed";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

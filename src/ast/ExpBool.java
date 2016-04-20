@@ -12,4 +12,14 @@ public class ExpBool extends Expression {
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public Type.EnumType getType() {
+        return Type.EnumType.BOOLVAL;
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }

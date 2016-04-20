@@ -1,5 +1,8 @@
 package ast;
 
+import exceptions.ReferenceIndefinie;
+import exceptions.TypeIncoherent;
+import exceptions.VarExistante;
 import table.Table;
 import table.VarIdentificateur;
 
@@ -31,8 +34,27 @@ public class AssignExp extends Assign {
         }
     }
 
-    public void insertIntoTable(Table table){
-        VarIdentificateur varId = new VarIdentificateur(t, var);
-        table.addTopBlock(varId);
+    public void insertIntoTable() throws Exception{
+        //declaration
+        if(!isNull()){
+            Type.EnumType ty = Table.getInstance().lookUp(var,false);
+            if(ty == null) {
+                VarIdentificateur varId = new VarIdentificateur(t, var);
+                Table.getInstance().addTopBlock(varId, isGlobal);
+            }else{
+                throw new VarExistante(var,pos);
+            }
+        }
+    }
+
+    @Override
+    public void verifSemantique() throws Exception{
+        insertIntoTable();
+        Type.EnumType type = Table.getInstance().lookUp(var, false);
+        if(type == null){
+            throw new ReferenceIndefinie(var,pos);
+        }else if(type != exp.getType()){
+            throw new TypeIncoherent(type.toString(),exp.getType().toString(),pos);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package ast;
 
 import miniLI.StringOffseter;
+import exceptions.TypeIncoherent;
+import table.Table;
 
 import java.util.List;
 
@@ -29,5 +31,19 @@ public class ControlWhile extends Control{
         StringOffseter.offset--;
         s.append("}");
         return s.toString();
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        if(exp.getType()!= Type.EnumType.BOOLVAL){
+            throw new TypeIncoherent(exp.getType().toString(),"Boolean",pos);
+        }
+        Table.getInstance().newBlock();
+
+        for(Instruction i:ins){
+            i.verifSemantique();
+        }
+
+        Table.getInstance().popBlock();
     }
 }

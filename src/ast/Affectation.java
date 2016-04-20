@@ -14,4 +14,9 @@ public class Affectation extends Ast {
     public String toString() {
         return assign.toString() + ";";
     }
+
+    @Override
+    public void verifSemantique() throws Exception{
+        assign.verifSemantique();
+    }
 }

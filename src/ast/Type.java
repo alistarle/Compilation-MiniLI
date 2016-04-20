@@ -51,5 +51,10 @@ public class Type extends Ast{
     public String toString() {
         return t.toString();
     }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }
 

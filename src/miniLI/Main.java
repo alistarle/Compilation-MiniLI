@@ -39,9 +39,9 @@ public class Main {
 
         MiniliVisitor<Ast> buildAST = new BuildAST();
         Program program = (Program) buildAST.visit(tree);
+        program.verifSemantique();
 
         System.out.println("=========== Affichage du pretty printer ===========");
         System.out.println(program.toString());
-
     }
 }

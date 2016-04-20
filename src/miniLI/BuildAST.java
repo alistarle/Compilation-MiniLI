@@ -100,7 +100,8 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
             ref = false;
         }
         Type.EnumType type = (ctx.type() != null) ? ((Type) visitType(ctx.type(),ref)).getType() : null;
-        return new AssignExp(position(ctx), type, ctx.Identifiant().toString(), (Expression) visit(ctx.expression()));
+        Expression expression = (Expression) visit(ctx.expression());
+        return new AssignExp(position(ctx), type, ctx.Identifiant().toString(), expression);
     }
 
     @Override
@@ -195,7 +196,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
     }
 
     @Override public Ast visitBoolean(MiniliParser.BooleanContext ctx) {
-        return new ExpBool(position(ctx), Bool.valueOf(ctx.BOOLEAN().toString()));
+        return new ExpBool(position(ctx), Bool.valueOf(ctx.BOOLEAN().toString().toUpperCase()));
     }
     @Override public Ast visitInt(MiniliParser.IntContext ctx) {
         Integer integer = Integer.parseInt(ctx.Constante().toString());

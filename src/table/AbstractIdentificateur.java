@@ -8,4 +8,12 @@ import ast.Type;
 public abstract class AbstractIdentificateur {
     String nom;
     Type.EnumType t;
+
+    @Override
+    public String toString() {
+        return "Identificateur{" +
+                "nom='" + nom + '\'' +
+                ", t=" + t +
+                '}';
+    }
 }

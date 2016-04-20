@@ -1,5 +1,8 @@
 package ast;
 
+import exceptions.TypeIncoherent;
+import exceptions.VarExistante;
+import exceptions.WrongIndex;
 import table.Table;
 import table.VarIdentificateur;
 
@@ -38,8 +41,26 @@ public class DeclareTab extends Assign {
         }
     }
 
-    public void insertIntoTable(Table table){
-        VarIdentificateur varIdentificateur = new VarIdentificateur(t, id);
-        table.addTopBlock(varIdentificateur);
+    public void insertIntoTable() throws Exception{
+        Type.EnumType t = Table.getInstance().lookUp(id,false);
+        if(t == null) {
+            VarIdentificateur varIdentificateur = new VarIdentificateur(this.t, id);
+            Table.getInstance().addTopBlock(varIdentificateur, isGlobal);
+        }else{
+            throw new VarExistante(id,pos);
+        }
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        insertIntoTable();
+        if(cstIsNull()){
+            Type.EnumType t = Table.getInstance().lookUp(idParam,false);
+            if(t != Type.EnumType.INTVAL){
+                throw new TypeIncoherent(t.toString(), "int",pos);
+            }
+        }else if(cst <= 0){
+            throw new WrongIndex(cst,pos);
+        }
     }
 }

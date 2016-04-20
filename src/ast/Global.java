@@ -12,10 +12,15 @@ public class Global extends Ast {
     public Global(Position pos, Affectation affectation) {
         this.pos = pos;
         this.affectation = affectation;
+        this.affectation.assign.isGlobal = true;
     }
 
     public String toString() {
         return new StringOffseter(affectation.toString() + ";").toString();
     }
 
+    @Override
+    public void verifSemantique() throws Exception {
+        affectation.verifSemantique();
+    }
 }

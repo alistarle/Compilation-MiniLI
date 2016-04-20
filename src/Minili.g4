@@ -9,6 +9,9 @@ Boolean : 'boolean';
 Char : 'char';
 Void : 'void';
 
+BOOLEAN : 'true'|'false';
+
+
 //Opération type de base
 //Arithmetique
 ADD : '+';
@@ -78,11 +81,11 @@ expression : expression op=(MUL|DIV) expression #MulDiv
 	| expression op=(EQ|NEQ) expression #Equal
 	| expression op=(AND|OR) expression #Logic
 	| op=NOT expression                  #LogicNot
-	| SUB?Identifiant						 #Id
 	| Identifiant'['expression']'        #IdArray
 	| BOOLEAN                            #Boolean
 	| CHAR                               #Char
 	| SUB?Constante                      #Int
+	| SUB?Identifiant						 #Id
 	| '('expression')'					 #Par
 	| functionCall                      #ExpFunctionCall
 	;
@@ -90,8 +93,6 @@ expression : expression op=(MUL|DIV) expression #MulDiv
 Constante : [0-9]+;
 
 Identifiant : [a-zA-Z0-9]+;
-
-BOOLEAN : 'true'|'false';
 
 CHAR : '\''[a-zA-Z ]+'\'';
 

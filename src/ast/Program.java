@@ -1,7 +1,6 @@
 package ast;
 
 import miniLI.StringOffseter;
-
 import java.util.*;
 
 public class Program extends Ast {
@@ -29,5 +28,16 @@ public class Program extends Ast {
 		}
 
 		return s.toString();
+	}
+
+	@Override
+	public void verifSemantique() throws Exception {
+		for(Global g:global){
+			g.verifSemantique();
+		}
+
+		for(Function f:function){
+			f.verifSemantique();
+		}
 	}
 }

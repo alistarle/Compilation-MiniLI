@@ -1,6 +1,8 @@
 package ast;
 
 import miniLI.StringOffseter;
+import exceptions.TypeIncoherent;
+import exceptions.VarExistante;
 import table.FunctionIdentificateur;
 import table.Table;
 
@@ -48,13 +50,37 @@ public class Function extends Ast {
         return s.toString();
     }
 
-    public void insertIntoTable(Table table){
-        FunctionIdentificateur fId = new FunctionIdentificateur(type, id);
+    public void insertIntoTable() throws Exception{
+        Type.EnumType t = Table.getInstance().lookUp(id,true);
+        if(t == null) {
+            FunctionIdentificateur fId = new FunctionIdentificateur(type, id);
 
-        for(HashMap.Entry<Type.EnumType, String> entry : params.entrySet()){
-            fId.addVal(entry.getKey(), entry.getValue());
+            for(HashMap.Entry<Type.EnumType, String> entry : params.entrySet()){
+                if(entry.getKey().isRef())
+                    fId.addRef(entry.getKey(), entry.getValue());
+                else
+                    fId.addVal(entry.getKey(), entry.getValue());
+            }
+
+            Table.getInstance().addTopBlock(fId, true);
+        }else {
+            throw new VarExistante(id,pos);
+        }
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        insertIntoTable();
+        Type.EnumType t = Table.getInstance().lookUp(id,true);
+        if(type != ret.getType()) {
+            throw new TypeIncoherent(type.toString(), ret.getType().toString(),pos);
         }
 
-        table.addTopBlock(fId);
+        for(Instruction i:ins){
+            i.verifSemantique();
+        }
+        System.out.println("=========== Affichage de la table des symbole ===========");
+        System.out.println(Table.getInstance().toString());
+        Table.getInstance().popBlock();
     }
 }
