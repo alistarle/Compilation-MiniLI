@@ -8,7 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.MiniliLexer;
 import parser.MiniliParser;
 import parser.MiniliVisitor;
-
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -24,7 +23,7 @@ public class Main {
 
         // FIRST STEP: analysis
         // Creation of the stream of characters
-        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/tableau.miniLI");
+        File file = new File("/home/thomas/Cours/Compilation/Projet/Compilation-MiniLI/exemples/fibo_iter.miniLI");
         FileInputStream fis = new FileInputStream(file);
         ANTLRInputStream input = new ANTLRInputStream(fis);
         // Creation of the lexer for pico programs
@@ -39,6 +38,7 @@ public class Main {
 
         MiniliVisitor<Ast> buildAST = new BuildAST();
         Program program = (Program) buildAST.visit(tree);
+        program.verifSemantique();
 
         System.out.println("=========== Affichage du pretty printer ===========");
         System.out.println(program.toString());

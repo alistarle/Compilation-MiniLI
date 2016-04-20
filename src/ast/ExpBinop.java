@@ -1,5 +1,7 @@
 package ast;
 
+import exceptions.TypeIncoherent;
+
 public class ExpBinop extends Expression {
 	public Expression left;
 	public Expression right;
@@ -15,7 +17,24 @@ public class ExpBinop extends Expression {
 	}
 
 	@Override
-	public Type.EnumType getType() {
-		return Type.EnumType.BOOLEAN;
+	public Type.EnumType getType() throws Exception {
+		if(left.getType() == right.getType()){
+			String o = op.toString().toUpperCase();
+			if(o == ">" || o == ">=" ||o == "<" || o == "<=" || o == "==" || o == "!=" || o == "&&" || o == "||"){
+				return Type.EnumType.BOOLEAN;
+			}else{
+				return left.getType();
+			}
+
+		}else{
+			throw new TypeIncoherent(left.getType().toString(),right.getType().toString());
+		}
+	}
+
+	@Override
+	public void verifSemantique() throws Exception {
+		if(left.getType() != right.getType()){
+			throw new TypeIncoherent(left.getType().toString(),right.getType().toString());
+		}
 	}
 }

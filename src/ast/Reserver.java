@@ -15,4 +15,9 @@ public class Reserver extends Assign {
     public String toString() {
         return "";
     }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }

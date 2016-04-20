@@ -5,4 +5,13 @@ package ast;
  */
 public class ExpVoid extends Expression {
 
+    @Override
+    public Type.EnumType getType() throws Exception {
+        return Type.EnumType.VOID;
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }

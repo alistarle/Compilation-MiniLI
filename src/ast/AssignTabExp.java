@@ -27,14 +27,15 @@ public class AssignTabExp extends Assign {
 
     @Override
     public void verifSemantique() throws Exception{
-        if(!table.lookUp(nameTab,false)){
+        Type.EnumType t = Table.getInstance().lookUp(nameTab,false);
+        if(t==null){
             throw new ReferenceIndefinie(nameTab);
         }else{
-            if(!(expParam.getType() == Type.EnumType.INT)){
+            if(expParam.getType() != Type.EnumType.INT){
                 throw new TypeIncoherent(expParam.getType().toString(), "int");
             }else {
-                if(!(exp.getType() == table.lookUp(nameTab, false))){
-
+                if(exp.getType() != t){
+                    throw new TypeIncoherent(exp.getType().toString(),t.toString());
                 }
             }
         }

@@ -1,6 +1,8 @@
 package ast;
 
 import miniLI.StringOffseter;
+import exceptions.TypeIncoherent;
+import table.Table;
 
 import java.util.List;
 
@@ -40,5 +42,23 @@ public class ControlIf extends Control {
             s.append("}");
         }
         return s.toString();
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        if(exp.getType()!= Type.EnumType.BOOLEAN){
+            throw new TypeIncoherent(exp.getType().toString(),"Boolean");
+        }
+
+        Table.getInstance().newBlock();
+
+        for(Instruction i:lif){
+            i.verifSemantique();
+        }
+
+        for(Instruction i:lelse){
+            i.verifSemantique();
+        }
+        Table.getInstance().popBlock();
     }
 }

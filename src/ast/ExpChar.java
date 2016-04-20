@@ -17,4 +17,9 @@ public class ExpChar extends Expression {
     public Type.EnumType getType() {
         return Type.EnumType.CHAR;
     }
+
+    @Override
+    public void verifSemantique() throws Exception {
+
+    }
 }

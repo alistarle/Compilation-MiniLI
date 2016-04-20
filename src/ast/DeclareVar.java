@@ -1,5 +1,6 @@
 package ast;
 
+import exceptions.VarExistante;
 import table.Table;
 import table.VarIdentificateur;
 /**
@@ -20,8 +21,18 @@ public class DeclareVar extends Assign{
         return t.toString() + " " + var;
     }
 
-    public void insertIntoTable(){
-        VarIdentificateur varId = new VarIdentificateur(t, var);
-        table.addTopBlock(varId,isGlobal);
+    public void insertIntoTable() throws Exception{
+        Type.EnumType ty = Table.getInstance().lookUp(var,false);
+        if(ty == null) {
+            VarIdentificateur varId = new VarIdentificateur(t, var);
+            Table.getInstance().addTopBlock(varId, isGlobal);
+        }else{
+            throw new VarExistante(var);
+        }
+    }
+
+    @Override
+    public void verifSemantique() throws Exception {
+        insertIntoTable();
     }
 }

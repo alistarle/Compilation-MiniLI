@@ -19,4 +19,8 @@ public class Global extends Ast {
         return new StringOffseter(affectation.toString() + ";").toString();
     }
 
+    @Override
+    public void verifSemantique() throws Exception {
+        affectation.verifSemantique();
+    }
 }
