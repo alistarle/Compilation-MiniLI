@@ -1,12 +1,13 @@
 package ast;
 
-import miniLI.StringOffseter;
 import exceptions.TypeIncoherent;
 import exceptions.VarExistante;
+import intermediate.Intermediate;
+import miniLI.StringOffseter;
 import table.FunctionIdentificateur;
 import table.Table;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +17,12 @@ public class Function extends Ast {
 
     public RetExpression ret;
     public List<Instruction> ins;
-    public HashMap<Type.EnumType, String> params;
+    public ArrayList<DeclareVar> params;
+    //public HashMap<Type.EnumType, String> params;
     public String id;
     public Type.EnumType type;
 
-    public Function(Position pos,RetExpression ret, List<Instruction> ins, HashMap<Type.EnumType, String> params, String id, Type.EnumType type) {
+    public Function(Position pos,RetExpression ret, List<Instruction> ins, ArrayList<DeclareVar> params, String id, Type.EnumType type) {
         this.pos = pos;
         this.ret = ret;
         this.ins = ins;
@@ -31,11 +33,11 @@ public class Function extends Ast {
 
     public String toString() {
         StringOffseter s = new StringOffseter(type.toString() + " " + id.toString() +"(");
-        for(HashMap.Entry<Type.EnumType, String> entry : params.entrySet()){
-            s.appendNoOffset(entry.getKey().toString() + " " + entry.getValue().toString() + ",");
+        for(DeclareVar entry : params){
+            s.appendNoOffset(entry.toString() + ",");
         }
         //remove the last ","
-        if(params.entrySet().size() > 0) s.getBuilder().deleteCharAt(s.getBuilder().length()-1);
+        if(params.size() > 0) s.getBuilder().deleteCharAt(s.getBuilder().length()-1);
         s.appendNoOffset("){\n");
 
         StringOffseter.offset++;
@@ -55,11 +57,12 @@ public class Function extends Ast {
         if(t == null) {
             FunctionIdentificateur fId = new FunctionIdentificateur(type, id);
 
-            for(HashMap.Entry<Type.EnumType, String> entry : params.entrySet()){
-                if(entry.getKey().isRef())
-                    fId.addRef(entry.getKey(), entry.getValue());
+            for(DeclareVar entry : params){
+                entry.setIndex(Intermediate.fresh_reg());
+                if(entry.getT().isRef())
+                    fId.addRef(entry.getT(), entry.getVar());
                 else
-                    fId.addVal(entry.getKey(), entry.getValue());
+                    fId.addVal(entry.getT(), entry.getVar());
             }
 
             Table.getInstance().addTopBlock(fId, true);
