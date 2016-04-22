@@ -1,13 +1,14 @@
 package intermediate.instruction;
 
 import intermediate.Expression;
+import intermediate.Instruction;
 
 import java.util.ArrayList;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class FunctionCall {
+public class FunctionCall extends Instruction{
 
     private int lbl_index;
     private ArrayList<Expression> expressions;

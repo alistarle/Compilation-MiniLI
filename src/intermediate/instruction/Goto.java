@@ -1,9 +1,11 @@
 package intermediate.instruction;
 
+import intermediate.Instruction;
+
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class Goto {
+public class Goto extends Instruction{
 
     private Label label;
 

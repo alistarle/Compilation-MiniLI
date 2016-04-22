@@ -1,11 +1,12 @@
 package intermediate.instruction;
 
 import intermediate.Expression;
+import intermediate.Instruction;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class WriteMem {
+public class WriteMem extends Instruction{
 
     private Expression expressionLeft;
     private Expression expressionRight;

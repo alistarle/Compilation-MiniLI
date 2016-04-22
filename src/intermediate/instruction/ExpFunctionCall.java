@@ -1,11 +1,12 @@
 package intermediate.instruction;
 
 import intermediate.Expression;
+import intermediate.Instruction;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class ExpFunctionCall {
+public class ExpFunctionCall extends Instruction{
 
     private Expression expression;
     private FunctionCall functionCall;

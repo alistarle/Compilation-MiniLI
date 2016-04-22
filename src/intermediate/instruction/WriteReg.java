@@ -1,11 +1,12 @@
 package intermediate.instruction;
 
 import intermediate.Expression;
+import intermediate.Instruction;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class WriteReg {
+public class WriteReg extends Instruction{
 
     private int reg;
     private Expression expression;

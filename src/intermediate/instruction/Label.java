@@ -1,11 +1,12 @@
 package intermediate.instruction;
 
+import intermediate.Instruction;
 import intermediate.Intermediate;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class Label {
+public class Label extends Instruction{
 
     private int index;
 

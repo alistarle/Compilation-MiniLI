@@ -1,11 +1,12 @@
 package intermediate.instruction;
 
 import intermediate.Expression;
+import intermediate.Instruction;
 
 /**
  * Created by alistarle on 22/04/2016.
  */
-public class Jump {
+public class Jump extends Instruction{
 
     private Expression expression;
     private Label labelTrue;
