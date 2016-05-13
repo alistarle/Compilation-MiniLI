@@ -3,8 +3,12 @@ package ast;
 import exceptions.TypeIncoherent;
 import exceptions.VarExistante;
 import exceptions.WrongIndex;
+import intermediate.*;
+import intermediate.Instruction;
 import table.Table;
 import table.VarIdentificateur;
+
+import java.util.ArrayList;
 
 /**
  * Created by thomas on 29/02/16.
@@ -44,7 +48,7 @@ public class DeclareTab extends Assign {
     public void insertIntoTable() throws Exception{
         Type.EnumType t = Table.getInstance().lookUp(id,false);
         if(t == null) {
-            VarIdentificateur varIdentificateur = new VarIdentificateur(this.t, id);
+            VarIdentificateur varIdentificateur = new VarIdentificateur(this.t, id, Intermediate.fresh_reg());
             Table.getInstance().addTopBlock(varIdentificateur, isGlobal);
         }else{
             throw new VarExistante(id,pos);
@@ -62,5 +66,11 @@ public class DeclareTab extends Assign {
         }else if(cst <= 0){
             throw new WrongIndex(cst,pos);
         }
+    }
+
+    @Override
+    public ArrayList<Instruction> genIntermediate() {
+        //TODO Gen declaration of array
+        return null;
     }
 }

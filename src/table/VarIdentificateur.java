@@ -7,8 +7,9 @@ import ast.Type;
 public class VarIdentificateur extends AbstractIdentificateur{
 
 
-    public VarIdentificateur(Type.EnumType t, String n){
+    public VarIdentificateur(Type.EnumType t, String n, int regIndex){
         this.t = t;
         this.nom = n;
+        this.reg_index = regIndex;
     }
 }

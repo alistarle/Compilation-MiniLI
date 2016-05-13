@@ -1,9 +1,14 @@
 package ast;
 
 import exceptions.VarExistante;
-import intermediate.Intermediate;
+import intermediate.*;
+import intermediate.Instruction;
+import intermediate.instruction.WriteReg;
 import table.Table;
 import table.VarIdentificateur;
+
+import java.util.ArrayList;
+
 /**
  * Created by thomas on 29/02/16.
  */
@@ -34,8 +39,8 @@ public class DeclareVar extends Assign{
     public void insertIntoTable() throws Exception{
         Type.EnumType ty = Table.getInstance().lookUp(var,false);
         if(ty == null) {
-            VarIdentificateur varId = new VarIdentificateur(t, var);
             this.reg_index = Intermediate.fresh_reg();
+            VarIdentificateur varId = new VarIdentificateur(t, var, reg_index);
             Table.getInstance().addTopBlock(varId, isGlobal);
         }else{
             throw new VarExistante(var,pos);
@@ -46,12 +51,19 @@ public class DeclareVar extends Assign{
         return reg_index;
     }
 
-    public void setIndex(int index) {
-        this.reg_index = index;
+    public void setIndex(int reg_index) {
+        this.reg_index = reg_index;
     }
 
     @Override
     public void verifSemantique() throws Exception {
         insertIntoTable();
+    }
+
+    @Override
+    public ArrayList<Instruction> genIntermediate() {
+        ArrayList<Instruction> iList = new ArrayList<>();
+        iList.add(new WriteReg(reg_index, new ExpInt(null, 0)));
+        return iList;
     }
 }

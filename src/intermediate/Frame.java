@@ -32,8 +32,16 @@ public class Frame {
         this.instructions = instructions;
     }
 
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
+    }
+
     @Override
     public String toString() {
-        return "frame(" + entry_label + ") : {entry : " + entry_label + "; return : " + return_label + "; args : " + args + "; result : "+result + "; stack : "+stack +"}";
+        //TODO Rework the toString of arrayList to prevent [ ] to be appended
+        StringBuilder str = new StringBuilder("frame(" + entry_label.getIndex() + ") : {entry : " + entry_label.getIndex() + "; return : " + return_label.getIndex() + "; args : " + args + "; result : "+result + "; stack : "+stack +"}" + "\n");
+        for(Instruction instruction : instructions)
+            str.append(instruction.toString());
+        return str.toString();
     }
 }

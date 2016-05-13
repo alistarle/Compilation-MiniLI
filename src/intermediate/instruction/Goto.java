@@ -19,6 +19,6 @@ public class Goto extends Instruction{
 
     @Override
     public String toString() {
-        return "goto " + label;
+        return "\tgoto " + label.getIndex() + "\n";
     }
 }

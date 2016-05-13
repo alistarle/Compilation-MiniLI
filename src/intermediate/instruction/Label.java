@@ -25,6 +25,6 @@ public class Label extends Instruction{
 
     @Override
     public String toString() {
-        return index + " :";
+        return index + " :" + "\n";
     }
 }

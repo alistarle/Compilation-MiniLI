@@ -1,9 +1,14 @@
 package ast;
 
-import miniLI.StringOffseter;
 import exceptions.TypeIncoherent;
+import intermediate.Intermediate;
+import intermediate.instruction.Goto;
+import intermediate.instruction.Jump;
+import intermediate.instruction.Label;
+import miniLI.StringOffseter;
 import table.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,5 +65,36 @@ public class ControlIf extends Control {
             i.verifSemantique();
         }
         Table.getInstance().popBlock();
+    }
+
+    @Override
+    public ArrayList<intermediate.Instruction> genIntermediate() {
+        ArrayList<intermediate.Instruction> iList = new ArrayList<>();
+        Label isTrue = new Label(Intermediate.fresh_lbl());
+        Label isFalse = new Label(Intermediate.fresh_lbl());
+        Label join = new Label(Intermediate.fresh_lbl());
+
+        iList.add(new Jump(exp, isTrue, isFalse));
+
+        iList.add(isTrue);
+        for(Instruction instruction : lif)
+        {
+            iList.addAll(instruction.genIntermediate());
+        }
+        //Le join, on rajoute un label pour pouvoir le supprimer si il est inutilisé ensuite
+        iList.add(new Label(Intermediate.fresh_lbl()));
+        iList.add(new Goto(join));
+
+        iList.add(isFalse);
+        for(Instruction instruction : lelse)
+        {
+            iList.addAll(instruction.genIntermediate());
+        }
+        //Le join, on rajoute un label pour pouvoir le supprimer si il est inutilisé ensuite
+        iList.add(new Label(Intermediate.fresh_lbl()));
+        iList.add(new Goto(join));
+
+        iList.add(join);
+        return iList;
     }
 }

@@ -3,8 +3,13 @@ package ast;
 import exceptions.ReferenceIndefinie;
 import exceptions.TypeIncoherent;
 import exceptions.VarExistante;
+import intermediate.Instruction;
+import intermediate.Intermediate;
+import intermediate.instruction.WriteReg;
 import table.Table;
 import table.VarIdentificateur;
+
+import java.util.ArrayList;
 
 /**
  * Created by thomas on 22/02/16.
@@ -12,6 +17,7 @@ import table.VarIdentificateur;
 public class AssignExp extends Assign {
     public Type.EnumType t;
     public String var;
+    public int reg_index;
     public Expression exp;
 
     public AssignExp(Position pos, Type.EnumType t, String var, Expression exp) {
@@ -39,7 +45,9 @@ public class AssignExp extends Assign {
         if(!isNull()){
             Type.EnumType ty = Table.getInstance().lookUp(var,false);
             if(ty == null) {
-                VarIdentificateur varId = new VarIdentificateur(t, var);
+                this.reg_index = Intermediate.fresh_reg();
+                VarIdentificateur varId;
+                varId = new VarIdentificateur(t, var, reg_index);
                 Table.getInstance().addTopBlock(varId, isGlobal);
             }else{
                 throw new VarExistante(var,pos);
@@ -56,5 +64,13 @@ public class AssignExp extends Assign {
         }else if(type != exp.getType()){
             throw new TypeIncoherent(type.toString(),exp.getType().toString(),pos);
         }
+        this.reg_index = Table.getInstance().lookUpIndex(var);
+    }
+
+    @Override
+    public ArrayList<Instruction> genIntermediate() {
+        ArrayList<Instruction> iList = new ArrayList<>();
+        iList.add(new WriteReg(reg_index, exp));
+        return iList;
     }
 }

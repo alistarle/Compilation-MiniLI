@@ -1,9 +1,14 @@
 package ast;
 
+import intermediate.Intermediate;
+import intermediate.instruction.Goto;
+import intermediate.instruction.Jump;
+import intermediate.instruction.Label;
 import miniLI.StringOffseter;
 import exceptions.TypeIncoherent;
 import table.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,5 +50,26 @@ public class ControlWhile extends Control{
         }
 
         Table.getInstance().popBlock();
+    }
+
+    @Override
+    public ArrayList<intermediate.Instruction> genIntermediate() {
+        ArrayList<intermediate.Instruction> iList = new ArrayList<>();
+        Label test = new Label(Intermediate.fresh_lbl());
+        Label loop = new Label(Intermediate.fresh_lbl());
+        Label end = new Label(Intermediate.fresh_lbl());
+
+        iList.add(test);
+        iList.add(new Jump(exp, loop, end));
+
+        iList.add(loop);
+        for(Instruction instruction : ins)
+        {
+            iList.addAll(instruction.genIntermediate());
+        }
+        iList.add(new Goto(test));
+
+        iList.add(end);
+        return iList;
     }
 }

@@ -1,6 +1,6 @@
 package intermediate.instruction;
 
-import intermediate.Expression;
+import ast.Expression;
 import intermediate.Instruction;
 
 /**
@@ -8,10 +8,11 @@ import intermediate.Instruction;
  */
 public class WriteMem extends Instruction{
 
+    //TODO Behaviour of memory managment with array
     private Expression expressionLeft;
     private Expression expressionRight;
 
-    public WriteMem(Expression expressionRight, Expression expressionLeft) {
+    public WriteMem(Expression expressionLeft, Expression expressionRight) {
         this.expressionRight = expressionRight;
         this.expressionLeft = expressionLeft;
     }
@@ -26,9 +27,6 @@ public class WriteMem extends Instruction{
 
     @Override
     public String toString() {
-        return "WriteMem{" +
-                "expressionLeft=" + expressionLeft +
-                ", expressionRight=" + expressionRight +
-                '}';
+        return "\t"+expressionLeft + " := " + expressionRight + "\n";
     }
 }

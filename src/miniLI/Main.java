@@ -2,6 +2,7 @@ package miniLI;
 
 import ast.Ast;
 import ast.Program;
+import intermediate.Intermediate;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -24,7 +25,7 @@ public class Main {
 
         // FIRST STEP: analysis
         // Creation of the stream of characters
-        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/tableau.miniLI");
+        File file = new File("/Users/alistarle/Documents/Master/Compilation/exemples/abs_main.miniLI");
         FileInputStream fis = new FileInputStream(file);
         ANTLRInputStream input = new ANTLRInputStream(fis);
         // Creation of the lexer for pico programs
@@ -43,5 +44,9 @@ public class Main {
 
         System.out.println("=========== Affichage du pretty printer ===========");
         System.out.println(program.toString());
+
+        System.out.println("=========== Language Intermediaire ===========");
+        Intermediate.genIntermediate(program);
+        System.out.println(Intermediate.printIntermediate());
     }
 }

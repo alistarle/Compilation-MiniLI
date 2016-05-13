@@ -1,5 +1,6 @@
 package table;
 
+import ast.Reserver;
 import ast.Type;
 
 import java.util.EmptyStackException;
@@ -22,6 +23,9 @@ public class Table {
     public static Table getInstance(){
         if(instance == null){
             instance = new Table();
+            //On ajoute les frames reservés dans la table des symboles pour les functionCall
+            for(Reserver.Function func : Reserver.Function.values())
+                Table.getInstance().addTopBlock(func.getFi(), true);
         }
         return instance;
     }
@@ -74,6 +78,26 @@ public class Table {
         }
 
         return null;
+    }
+
+    public int lookUpIndex(String n) {
+        try {
+            int exists;
+            for (Block b : blocks) {
+                exists = b.exists(n);
+                if (b.exists(n) != 0) {
+                    return exists;
+                }
+            }
+            exists = globals.peek().exists(n);
+            if(exists != 0){
+                return exists;
+            }
+        } catch (EmptyStackException e) {
+            System.out.println("EMPTY STACK");
+        }
+
+        return 0;
     }
 
     public void popBlock(){

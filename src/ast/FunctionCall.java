@@ -1,10 +1,11 @@
 package ast;
 
 import exceptions.ReferenceIndefinie;
+import intermediate.instruction.Label;
 import table.FunctionIdentificateur;
 import table.Table;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by thomas on 22/02/16.
@@ -12,9 +13,9 @@ import java.util.List;
 public class FunctionCall extends Instruction {
 
     public String id;
-    public List<Expression> param;
+    public ArrayList<Expression> param;
 
-    public FunctionCall(Position pos,String id, List<Expression> param) {
+    public FunctionCall(Position pos,String id, ArrayList<Expression> param) {
         this.pos = pos;
         this.id = id;
         this.param = param;
@@ -44,5 +45,12 @@ public class FunctionCall extends Instruction {
                 throw new ReferenceIndefinie(id,pos);
             }
         }
+    }
+
+    @Override
+    public ArrayList<intermediate.Instruction> genIntermediate() {
+        ArrayList<intermediate.Instruction> iList = new ArrayList<>();
+         iList.add(new intermediate.instruction.FunctionCall(new Label(Table.getInstance().getFunc(id).getIndex()), param));
+        return iList;
     }
 }

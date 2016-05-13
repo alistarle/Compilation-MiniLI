@@ -45,6 +45,15 @@ public class Block {
         return t;
     }
 
+    public int exists(String n){
+        for(AbstractIdentificateur ident : identificateurs){
+            if(ident.nom.equals(n)){
+                return ident.getIndex();
+            }
+        }
+        return 0;
+    }
+
     public FunctionIdentificateur getFunc(String n){
         for(AbstractIdentificateur ident : identificateurs) {
             if (ident.nom.equals(n)) {

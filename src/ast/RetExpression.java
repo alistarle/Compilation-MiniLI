@@ -1,5 +1,11 @@
 package ast;
 
+import intermediate.Intermediate;
+import intermediate.instruction.Goto;
+import intermediate.instruction.WriteReg;
+
+import java.util.ArrayList;
+
 /**
  * Created by thomas on 24/02/16.
  */
@@ -34,5 +40,13 @@ public class RetExpression extends Instruction{
     @Override
     public void verifSemantique() throws Exception {
         exp.verifSemantique();
+    }
+
+    @Override
+    public ArrayList<intermediate.Instruction> genIntermediate() {
+        ArrayList<intermediate.Instruction> iList = new ArrayList<>();
+        if(!isNull()) iList.add(new WriteReg(Intermediate.return_reg, exp));
+        iList.add(new Goto(Intermediate.return_label));
+        return iList;
     }
 }

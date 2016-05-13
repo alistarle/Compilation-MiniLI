@@ -1,6 +1,6 @@
 package intermediate.instruction;
 
-import intermediate.Expression;
+import ast.Expression;
 import intermediate.Instruction;
 
 /**
@@ -26,6 +26,6 @@ public class ExpFunctionCall extends Instruction{
 
     @Override
     public String toString() {
-        return expression + " := " + functionCall;
+        return "\t"+expression + " := " + functionCall + "\n";
     }
 }

@@ -2,7 +2,10 @@ package ast;
 
 import exceptions.ReferenceIndefinie;
 import exceptions.TypeIncoherent;
+import intermediate.Instruction;
 import table.Table;
+
+import java.util.ArrayList;
 
 /**
  * Created by thomas on 29/02/16.
@@ -11,6 +14,7 @@ public class AssignTabExp extends Assign {
 
     public String nameTab;
     public Expression expParam;
+    public int reg_index;
     public Expression exp;
 
     public AssignTabExp(Position pos, String nameTab, Expression expParam, Expression exp) {
@@ -38,5 +42,12 @@ public class AssignTabExp extends Assign {
                 }
             }
         }
+        this.reg_index = Table.getInstance().lookUpIndex(nameTab);
+    }
+
+    @Override
+    public ArrayList<Instruction> genIntermediate() {
+        //TODO Gen assignation of array
+        return null;
     }
 }

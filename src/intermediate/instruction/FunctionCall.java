@@ -1,6 +1,6 @@
 package intermediate.instruction;
 
-import intermediate.Expression;
+import ast.Expression;
 import intermediate.Instruction;
 
 import java.util.ArrayList;
@@ -10,16 +10,16 @@ import java.util.ArrayList;
  */
 public class FunctionCall extends Instruction{
 
-    private int lbl_index;
+    private Label lbl;
     private ArrayList<Expression> expressions;
 
-    public FunctionCall(int lbl_index, ArrayList<Expression> expressions) {
-        this.lbl_index = lbl_index;
+    public FunctionCall(Label lbl, ArrayList<Expression> expressions) {
+        this.lbl = lbl;
         this.expressions = expressions;
     }
 
-    public int getLbl_index() {
-        return lbl_index;
+    public Label getLabel() {
+        return lbl;
     }
 
     public ArrayList<Expression> getExpressions() {
@@ -28,6 +28,6 @@ public class FunctionCall extends Instruction{
 
     @Override
     public String toString() {
-        return "call " + lbl_index + " ("+ expressions + ")";
+        return "\tcall " + lbl.getIndex() + " ("+ expressions + ")" + "\n";
     }
 }

@@ -10,7 +10,6 @@ import parser.MiniliLexer;
 import parser.MiniliParser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -249,7 +248,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
     @Override public Ast visitFunction(MiniliParser.FunctionContext ctx) {
         List<Instruction> ins =  new ArrayList<>();
-        HashMap<Type.EnumType, String> param = new HashMap<>();
+        ArrayList<DeclareVar> param = new ArrayList<>();
 
         for(MiniliParser.InstructionContext child : ctx.instruction()){
             ins.add((Instruction) visitInstruction(child));
@@ -264,7 +263,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
                 ref = false;
             }
             Type type = (Type) this.visitType(ctx.type(i),ref);
-            param.put(type.getType(),ctx.Identifiant(i).toString());
+            param.add(new DeclareVar(null,type.getType(),ctx.Identifiant(i).toString()));
         }
 
         Type type = (Type) this.visitType(ctx.type(0),false);
@@ -280,7 +279,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
     }
 
     @Override public Ast visitFunctionCall(MiniliParser.FunctionCallContext ctx) {
-            List<Expression> param = new ArrayList<>();
+            ArrayList<Expression> param = new ArrayList<>();
             for(ParseTree child : ctx.expression()){
                 Ast i = visit(child);
                 if(i != null && i instanceof Expression){
@@ -292,7 +291,7 @@ public class BuildAST extends MiniliBaseVisitor<Ast> {
 
 
     @Override public Ast visitExpFunctionCall(MiniliParser.ExpFunctionCallContext ctx) {
-        List<Expression> param = new ArrayList<>();
+        ArrayList<Expression> param = new ArrayList<>();
         for(ParseTree child : ctx.functionCall().expression()){
             Ast i = visit(child);
             if(i != null && i instanceof Expression){

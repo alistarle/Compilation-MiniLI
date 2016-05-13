@@ -1,4 +1,4 @@
-void main(){
+int main(){
 	int val;
 	in(val);
     int rep = abs(val);

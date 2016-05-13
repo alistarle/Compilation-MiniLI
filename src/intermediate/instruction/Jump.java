@@ -1,6 +1,6 @@
 package intermediate.instruction;
 
-import intermediate.Expression;
+import ast.Expression;
 import intermediate.Instruction;
 
 /**
@@ -12,7 +12,7 @@ public class Jump extends Instruction{
     private Label labelTrue;
     private Label labelFalse;
 
-    public Jump(Expression expression, Label labelFalse, Label labelTrue) {
+    public Jump(Expression expression, Label labelTrue, Label labelFalse) {
         this.expression = expression;
         this.labelFalse = labelFalse;
         this.labelTrue = labelTrue;
@@ -32,6 +32,6 @@ public class Jump extends Instruction{
 
     @Override
     public String toString() {
-        return "\tjump (" + expression + ") " + labelTrue + " " + labelFalse;
+        return "\tjump (" + expression + ") " + labelTrue.getIndex() + " " + labelFalse.getIndex() + "\n";
     }
 }

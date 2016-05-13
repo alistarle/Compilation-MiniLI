@@ -20,6 +20,7 @@ public class ExpFunctionCall extends Expression {
 
     @Override
     public Type.EnumType getType() throws Exception{
+        //Table.getInstance().
         Type.EnumType t = Table.getInstance().lookUp(fc.id,true);
         if(t!=null){
             return t;
